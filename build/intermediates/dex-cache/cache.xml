@@ -9,11 +9,11 @@
         <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/classes-5b116976008bb0ba2453a2c4b4c3a0e62a0380db.jar" />
     </item>
     <item
-        jar="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jar="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/classes-442e6e67c9bb902a414d6f5bdf7b8943893e1244.jar" />
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-c68efee7627ce8161612e11ac6d787de43dda37a.jar" />
     </item>
     <item
         jar="/home/goks/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
@@ -23,11 +23,25 @@
         <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-6943621b6605c033148ed3360ebe66542fef5055.jar" />
     </item>
     <item
-        jar="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jar="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-c68efee7627ce8161612e11ac6d787de43dda37a.jar" />
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/classes-442e6e67c9bb902a414d6f5bdf7b8943893e1244.jar" />
+    </item>
+    <item
+        jar="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/exploded-aar/com.android.support/support-v13/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="79a5b6d9fbab3b5fb4c6f86a1ed7a17722fd937b">
+        <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-c0bffaeb568091bd97081d0cae43d96357d4c368.jar" />
+    </item>
+    <item
+        jar="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/exploded-aar/com.android.support/support-v13/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9aa93835393824b436f366120c9ba8a0260ce75d">
+        <dex dex="/home/goks/AndroidStudioProjects/QuickSplit/app/build/intermediates/pre-dexed/debug/classes-f1454d81ef72dd52e79473b554d6ce5934baebb8.jar" />
     </item>
 
 </items>

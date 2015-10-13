@@ -7,19 +7,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
-    Button forgot,register,login;
+    TextView forgot,register;
+    Button login;
+    EditText email,password;
+    String mail,pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        forgot = (Button) findViewById(R.id.forgot);
-        register = (Button) findViewById(R.id.register);
+        forgot = (TextView) findViewById(R.id.forgot);
+        register = (TextView) findViewById(R.id.register);
         login = (Button) findViewById(R.id.login);
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
 
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,8 +47,10 @@ public class MainActivity extends ActionBarActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent k = new Intent(MainActivity.this,Home.class);
-                startActivity(k);
+                mail = email.getText().toString();
+                pass = password.getText().toString();
+
+                new SigninActivity(MainActivity.this,mail).execute(mail, pass);
             }
         });
     }

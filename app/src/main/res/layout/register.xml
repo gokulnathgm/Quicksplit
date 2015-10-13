@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="REGISTER"
-        android:id="@+id/button1"
+        android:id="@+id/register"
         android:layout_below="@+id/password"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
