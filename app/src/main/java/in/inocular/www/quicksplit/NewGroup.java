@@ -10,12 +10,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 
 public class NewGroup extends ActionBarActivity implements View.OnClickListener {
 
     Button create;
+    EditText name;
+    String gname;
 
     String[] menu;
     DrawerLayout dLayout;
@@ -27,6 +30,7 @@ public class NewGroup extends ActionBarActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_group);
 
+        name = (EditText) findViewById(R.id.groupname);
         create = (Button) findViewById(R.id.createGroup);
         create.setOnClickListener(this);
 
@@ -108,8 +112,9 @@ public class NewGroup extends ActionBarActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(this, GroupActivity.class);
-        startActivity(i);
+
+        gname = name.getText().toString();
+        new CreateGroup(NewGroup.this).execute(gname);
     }
 
     @Override

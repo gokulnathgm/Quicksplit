@@ -109,7 +109,7 @@ public class GroupActivity extends ActionBarActivity {
                 return true;
             case R.id.action_add_friend:
 
-                //   newFriend();
+
                 return true;
             case R.id.action_all_expenses:
                 // refresh
