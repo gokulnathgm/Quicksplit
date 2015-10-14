@@ -111,4 +111,10 @@ public class NewGroup extends ActionBarActivity implements View.OnClickListener 
         Intent i = new Intent(this, GroupActivity.class);
         startActivity(i);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }

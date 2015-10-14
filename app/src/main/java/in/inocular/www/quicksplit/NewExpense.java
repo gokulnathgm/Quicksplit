@@ -80,6 +80,7 @@ public class NewExpense extends ActionBarActivity implements View.OnClickListene
     void launchHomeActivity() {
         Intent i = new Intent(this, Home.class);
         startActivity(i);
+        finish();
     }
 
     void createNewGroup() {

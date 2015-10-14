@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"  android:layout_height="20dip"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="20dip"
     android:layout_width="fill_parent">
 
     <!-- New expense -->
     <item android:id="@+id/action_new"
         android:icon="@drawable/ic_action_new"
         android:title="New Expense"
-        android:showAsAction="always"/>
+        app:showAsAction="always"/>
 
     <!-- Add new person -->
     <item android:id="@+id/action_add_friend"
         android:icon="@drawable/ic_action_add_person"
         android:title="New Friend"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
     <item android:id="@+id/action_all_expenses"
         android:icon="@drawable/ic_action_view_as_list"
         android:title="All Expenses"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
 </menu>

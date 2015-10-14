@@ -71,6 +71,7 @@ public class GroupActivity extends ActionBarActivity {
     void launchHomeActivity() {
         Intent i = new Intent(this, Home.class);
         startActivity(i);
+        finish();
     }
 
     void createNewGroup() {
@@ -82,6 +83,14 @@ public class GroupActivity extends ActionBarActivity {
         Intent i = new Intent(this, NewExpense.class);
         startActivity(i);
     }
+
+    /*
+    void newFriend() {
+        Intent i = new Intent(MainActivity.this, LocationFound.class);
+        startActivity(i);
+    }
+*/
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,12 +119,4 @@ public class GroupActivity extends ActionBarActivity {
         }
     }
 
-
-
-/*
-    void newFriend() {
-        Intent i = new Intent(MainActivity.this, LocationFound.class);
-        startActivity(i);
-    }
-*/
 }
