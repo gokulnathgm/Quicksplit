@@ -1,19 +1,22 @@
 package in.inocular.www.quicksplit;
 
-import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TabHost;
 
-/**
- * Created by goks on 29/9/15.
- */
-public class Home extends TabActivity {
+
+public class NewExpense extends ActionBarActivity implements View.OnClickListener {
+
+    Button addExpense;
+
 
     String[] menu;
     DrawerLayout dLayout;
@@ -24,19 +27,11 @@ public class Home extends TabActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
+        setContentView(R.layout.activity_new_expense);
 
-        TabHost tabHost = getTabHost();
-        TabHost.TabSpec spec;
-        Intent intent;
+        addExpense = (Button) findViewById(R.id.addExpenseButton);
 
-        intent = new Intent().setClass(this, Summary.class);
-        spec = tabHost.newTabSpec("Summary").setIndicator("Summary").setContent(intent);
-        tabHost.addTab(spec);
 
-        intent = new Intent().setClass(this, GroupSummary.class);
-        spec = tabHost.newTabSpec("Groups").setIndicator("Group").setContent(intent);
-        tabHost.addTab(spec);
 
         menu = new String[]{"Home","Expenses","Create Group","Settings"};
         dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -78,6 +73,7 @@ public class Home extends TabActivity {
         });
 
 
+        addExpense.setOnClickListener(this);
 
     }
 
@@ -90,5 +86,32 @@ public class Home extends TabActivity {
         Intent i = new Intent(this, NewGroup.class);
         startActivity(i);
     }
-}
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_new_expense, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent i = new Intent(this, GroupActivity.class);
+        startActivity(i);
+    }
+}

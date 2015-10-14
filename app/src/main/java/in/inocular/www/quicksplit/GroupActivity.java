@@ -1,42 +1,29 @@
 package in.inocular.www.quicksplit;
 
-import android.app.TabActivity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TabHost;
 
-/**
- * Created by goks on 29/9/15.
- */
-public class Home extends TabActivity {
+
+public class GroupActivity extends ActionBarActivity {
 
     String[] menu;
     DrawerLayout dLayout;
     ListView dList;
     ArrayAdapter<String> adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
-
-        TabHost tabHost = getTabHost();
-        TabHost.TabSpec spec;
-        Intent intent;
-
-        intent = new Intent().setClass(this, Summary.class);
-        spec = tabHost.newTabSpec("Summary").setIndicator("Summary").setContent(intent);
-        tabHost.addTab(spec);
-
-        intent = new Intent().setClass(this, GroupSummary.class);
-        spec = tabHost.newTabSpec("Groups").setIndicator("Group").setContent(intent);
-        tabHost.addTab(spec);
+        setContentView(R.layout.activity_group);
 
         menu = new String[]{"Home","Expenses","Create Group","Settings"};
         dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -61,11 +48,13 @@ public class Home extends TabActivity {
                 fragmentManager.beginTransaction().replace(R.id.tabMode, detail).commit();*/
 
                 switch (position) {
-                    case 0: launchHomeActivity();
+                    case 0:
+                        launchHomeActivity();
                         return;
                     case 1:
                         return;
-                    case 2: createNewGroup();
+                    case 2:
+                        createNewGroup();
                         return;
                     case 3:
                         return;
@@ -76,8 +65,6 @@ public class Home extends TabActivity {
             }
 
         });
-
-
 
     }
 
@@ -90,5 +77,45 @@ public class Home extends TabActivity {
         Intent i = new Intent(this, NewGroup.class);
         startActivity(i);
     }
-}
 
+    void newExpense() {
+        Intent i = new Intent(this, NewExpense.class);
+        startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_main_actions, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_new:
+                newExpense();
+                return true;
+            case R.id.action_add_friend:
+
+                //   newFriend();
+                return true;
+            case R.id.action_all_expenses:
+                // refresh
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+/*
+    void newFriend() {
+        Intent i = new Intent(MainActivity.this, LocationFound.class);
+        startActivity(i);
+    }
+*/
+}
