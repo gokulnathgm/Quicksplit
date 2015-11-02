@@ -1,21 +1,18 @@
 package in.inocular.www.quicksplit;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 
-public class GroupSummary extends Activity {
+public class GroupSummary extends Fragment {
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_summary);
-
-
-        TextView txtView = (TextView) findViewById(R.id.textView);
-        txtView.setText("Group Summary details");
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_group_summary,null);
     }
-
 }

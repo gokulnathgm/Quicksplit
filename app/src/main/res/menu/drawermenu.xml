@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Home"
+        android:id="@+id/nav_item_home"
+        android:icon="@drawable/abc_ic_menu_selectall_mtrl_alpha"/>
+
+    <item android:title="All Expenses"
+        android:id="@+id/nav_item_allExpense"
+        android:icon="@drawable/ic_action_view_as_list"/>
+
+    <item android:title="Groups" >
+        <menu>
+            <item
+                android:title="Demo Group"
+                android:onClick="launchAddExpenseActivity"
+                android:background="?android:attr/selectableItemBackground"
+                android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+
+            <item
+                android:title="Group 1"
+                android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+            <item
+                android:title="Group 2"
+                android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+        </menu>
+    </item>
+</menu>

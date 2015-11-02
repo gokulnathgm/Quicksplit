@@ -1,122 +1,108 @@
 package in.inocular.www.quicksplit;
 
 import android.content.Intent;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 
-public class GroupActivity extends ActionBarActivity {
+public class GroupActivity extends AppCompatActivity {
 
-    String[] menu;
-    DrawerLayout dLayout;
-    ListView dList;
-    ArrayAdapter<String> adapter;
+    DrawerLayout mDrawerLayout;
+    NavigationView mNavigationView;
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group);
+        setContentView(R.layout.home);
 
-        menu = new String[]{"Home","Expenses","Create Group","Settings"};
-        dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        dList = (ListView) findViewById(R.id.left_drawer);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menu);
+        //Setup the DrawerLayout and NavigationView
 
-        dList.setAdapter(adapter);
-        dList.setSelector(android.R.color.holo_blue_dark);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mNavigationView = (NavigationView) findViewById(R.id.shitstuff) ;
 
-        dList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /**
+         * Lets inflate the very first fragment
+         * Here , we are inflating the TabFragment as the first Fragment
+         */
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+        /**
+         * Setup click events on the Navigation View Items.
+         */
 
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                mDrawerLayout.closeDrawers();
 
-                /*dLayout.closeDrawers();
-                Bundle args = new Bundle();
-                args.putString("Menu", menu[position]);
-                Fragment detail = new DetailFragment();
-                detail.setArguments(args);
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.tabMode, detail).commit();*/
 
-                switch (position) {
-                    case 0:
-                        launchHomeActivity();
-                        return;
-                    case 1:
-                        return;
-                    case 2:
-                        createNewGroup();
-                        return;
-                    case 3:
-                        return;
-                    default:
-                        return;
+/*
+
+                if (menuItem.getItemId() == R.id.nav_item_sent) {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+
                 }
 
+                if (menuItem.getItemId() == R.id.nav_item_inbox) {
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+                }
+*/
+
+                return false;
             }
 
         });
 
-    }
+        /**
+         * Setup Drawer Toggle of the Toolbar
+         */
 
-    void launchHomeActivity() {
-        Intent i = new Intent(this, Home.class);
-        startActivity(i);
-        finish();
-    }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name, R.string.app_name);
 
-    void createNewGroup() {
-        Intent i = new Intent(this, NewGroup.class);
-        startActivity(i);
-    }
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-    void newExpense() {
-        Intent i = new Intent(this, NewExpense.class);
-        startActivity(i);
-    }
+        mDrawerToggle.syncState();
 
-    /*
-    void newFriend() {
-        Intent i = new Intent(MainActivity.this, LocationFound.class);
-        startActivity(i);
     }
-*/
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main_actions, menu);
-
+        inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_new:
-                newExpense();
-                return true;
-            case R.id.action_add_friend:
-
-
-                return true;
-            case R.id.action_all_expenses:
-                // refresh
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void launchAddExpenseActivity(MenuItem item) {
+        Intent intent = new Intent(this,NewExpense.class);
+        startActivity(intent);
     }
 
+    public void launchCreateNewGroupActivity(MenuItem item) {
+        Intent intent = new Intent(this,NewGroup.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }
