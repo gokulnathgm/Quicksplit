@@ -12,15 +12,17 @@
         <menu>
             <item
                 android:title="Demo Group"
-                android:onClick="launchAddExpenseActivity"
+                android:onClick="launchGroupActivity"
                 android:background="?android:attr/selectableItemBackground"
                 android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"/>
 
             <item
                 android:title="Group 1"
+                android:onClick="launchGroupActivity"
                 android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"/>
             <item
                 android:title="Group 2"
+                android:onClick="launchGroupActivity"
                 android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"/>
         </menu>
     </item>

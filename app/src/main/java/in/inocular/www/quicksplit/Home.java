@@ -102,5 +102,10 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void launchGroupActivity(MenuItem item) {
+        Intent intent = new Intent(this,GroupActivity.class);
+        startActivity(intent);
+    }
+
 }
 

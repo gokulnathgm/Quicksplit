@@ -86,7 +86,7 @@ public class GroupActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_group, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -95,14 +95,18 @@ public class GroupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launchCreateNewGroupActivity(MenuItem item) {
-        Intent intent = new Intent(this,NewGroup.class);
+    public void launchAddNewPersonActivity(MenuItem item) {
+        Intent intent = new Intent(this,NewFriend.class);
+        startActivity(intent);
+    }
+
+    public void launchGroupActivity(MenuItem item) {
+        Intent intent = new Intent(this,GroupActivity.class);
         startActivity(intent);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
     }
 }
