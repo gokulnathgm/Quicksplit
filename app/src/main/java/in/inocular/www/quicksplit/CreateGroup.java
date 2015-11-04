@@ -19,7 +19,7 @@ import java.net.URLEncoder;
  */
 public class CreateGroup extends AsyncTask<String,Void,String> {
 
-    ProgressDialog progress;
+    ProgressDialog progress;int id;
     private Context context;
     private int byGetOrPost = 0;
     //flag 0 means get and 1 means post.(By default it is get.)
@@ -77,11 +77,9 @@ public class CreateGroup extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result){
 
         Log.d("RESULT", result);
-        if(result.equals("success")) {
-
-
-
-
+        if(result.contains("success")) {
+            String[] a =  result.split(" ");
+            id = Integer.parseInt(a[1]);
 
             Intent i = new Intent(context, GroupActivity.class);
             context.startActivity(i);
