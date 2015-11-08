@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Add Person"
             android:id="@+id/addperson"
+            style="@style/BtnTextColor"
             android:layout_below="@+id/email"
             android:layout_alignRight="@+id/email"
             android:layout_alignEnd="@+id/email"

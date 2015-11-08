@@ -35,7 +35,7 @@
         />
     <Button
         android:background="#66CD00"
-        android:textColor="#FFFFFF"
+        style="@style/BtnTextColor"
         android:textStyle="bold"
         android:layout_width="250dp"
         android:layout_gravity="center"

@@ -19,7 +19,7 @@ public class TabFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 2 ;
+    public static int int_items = 3 ;
 
     @Nullable
     @Override
@@ -42,6 +42,7 @@ public class TabFragment extends Fragment {
          * Maybe a Support Library Bug .
          */
 
+        //viewPager.setCurrentItem(1,true);
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -67,8 +68,9 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return new Summary();
-                case 1 : return new GroupSummary();
+                case 0 : return new GroupSummary();
+                case 1 : return new Summary();
+                case 2 : return new AllExpenses();
             }
             return null;
         }
@@ -89,9 +91,11 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Summary";
-                case 1 :
                     return "Group Summary";
+                case 1 :
+                    return "Summary";
+                case 2 :
+                    return "All Expenses";
             }
             return null;
         }
