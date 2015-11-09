@@ -49,7 +49,7 @@ public class GroupSummary extends Fragment {
         ArrayList results = new ArrayList<DataObject>();
         String[] names = {"Group 1","Group 2", "Group 3", "Group 4"};
         for (int index = 0; index < 4; index++) {
-            DataObject obj = new DataObject(names[index],"you gets back",index*100);
+            DataObject obj = new DataObject(names[index],"you gets back","\u20B9 " + index*100);
             results.add(index, obj);
         }
         return results;

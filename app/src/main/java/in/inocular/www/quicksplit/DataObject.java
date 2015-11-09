@@ -6,9 +6,9 @@ package in.inocular.www.quicksplit;
 public class DataObject {
     private String name;
     private String message;
-    private int owedValue;
+    private String owedValue;
 
-    DataObject(String text1, String text2, int value){
+    DataObject(String text1, String text2, String value){
         name = text1;
         message = text2;
         owedValue = value;
@@ -30,11 +30,11 @@ public class DataObject {
         message = mText2;
     }
 
-    public int getmText3() {
+    public String getmText3() {
         return owedValue;
     }
 
-    public void setmText3(int mText2) {
+    public void setmText3(String mText2) {
         owedValue = mText2;
     }
 }

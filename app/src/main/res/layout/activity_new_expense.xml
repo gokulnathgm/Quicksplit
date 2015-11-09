@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Paid by"
             android:id="@+id/paidBy"
-            android:textColor="#00FF00"
+            android:textColor="#FFFFFF"
             android:layout_below="@+id/editText2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -47,13 +47,13 @@
             android:layout_height="wrap_content"
             android:text="Owings"
             android:id="@+id/owings"
-            android:textColor="#00FF00"
+            android:textColor="#FFFFFF"
             android:layout_alignTop="@+id/paidBy"
             android:layout_marginRight="25dp"
             android:layout_alignRight="@+id/addExpenseButton"
             android:layout_alignEnd="@+id/addExpenseButton"
             android:background="@color/primary"
-            android:minWidth="80dip"/>
+            android:minWidth="85dip"/>
 
 
         <Button

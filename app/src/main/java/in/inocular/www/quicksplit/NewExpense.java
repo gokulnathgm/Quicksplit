@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -74,6 +75,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         AlertDialog dialog = builder.create();
         dialog.show();
         Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         int width = (int) (getResources().getDisplayMetrics().widthPixels*0.80);
         window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
@@ -95,6 +97,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         AlertDialog dialog = builder.create();
         dialog.show();
         Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         int width = (int) (getResources().getDisplayMetrics().widthPixels*0.80);
         window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }

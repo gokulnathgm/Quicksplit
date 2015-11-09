@@ -56,7 +56,7 @@ public class Summary extends Fragment {
         ArrayList results = new ArrayList<DataObject>();
         String[] names = {"Gokul Nath","Aravind Sai", "Divya", "Dhrisya"};
         for (int index = 0; index < 4; index++) {
-            DataObject obj = new DataObject(names[index],"owes you",index*100);
+            DataObject obj = new DataObject(names[index],"owes you","\u20B9 " + index*100);
             results.add(index, obj);
         }
         return results;
