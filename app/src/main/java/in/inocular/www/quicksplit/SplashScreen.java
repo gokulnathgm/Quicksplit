@@ -2,12 +2,14 @@ package in.inocular.www.quicksplit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 /**
  * Created by goks on 20/9/15.
  */
 public class SplashScreen extends Activity {
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +22,17 @@ public class SplashScreen extends Activity {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }finally{
-                    Intent intent = new Intent(SplashScreen.this,MainActivity.class);
-                    startActivity(intent);
+                    prefs = getSharedPreferences("file",0);
+                    Boolean check = prefs.getBoolean("logged_in",false);
+                    if(check){
+                        Intent intent = new Intent(SplashScreen.this,Home.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(SplashScreen.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
             }
         };

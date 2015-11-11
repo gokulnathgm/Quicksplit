@@ -3,6 +3,7 @@ package in.inocular.www.quicksplit;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ import java.net.URLEncoder;
  */
 public class CreateGroup extends AsyncTask<String,Void,String> {
 
+    SharedPreferences prefs;
+    String group;
     ProgressDialog progress;int id;
     private Context context;
     private int byGetOrPost = 0;
@@ -41,7 +44,7 @@ public class CreateGroup extends AsyncTask<String,Void,String> {
 
         try{
 
-            String group = (String)arg0[0];
+            group = (String)arg0[0];
             Log.d("group name", group);
 
             String link="http://inocular.in/php/creategroup.php";
@@ -80,11 +83,20 @@ public class CreateGroup extends AsyncTask<String,Void,String> {
         if(result.contains("success")) {
             String[] a =  result.split(" ");
             id = Integer.parseInt(a[1]);
+            prefs = context.getSharedPreferences("file", 0);
+            SharedPreferences.Editor editor = prefs.edit();
+            int num = prefs.getInt("number_of_groups",0);
+            editor.putInt("group_id"+num,id);
+            editor.putString("group_name"+num,group);
+            num++;
+            editor.putInt("number_of_groups",num);
+            editor.commit();
+
 
             Intent i = new Intent(context, GroupActivity.class);
             context.startActivity(i);
 
-            Toast.makeText(context, "Group Created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Group Created ", Toast.LENGTH_SHORT).show();
             progress.dismiss();
         }
         else

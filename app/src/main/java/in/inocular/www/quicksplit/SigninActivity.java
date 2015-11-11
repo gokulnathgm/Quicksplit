@@ -3,6 +3,7 @@ package in.inocular.www.quicksplit;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import java.net.URLEncoder;
 
 public class SigninActivity  extends AsyncTask<String,Void,String> {
 
+    SharedPreferences prefs;
     String email;
     ProgressDialog progress;
     private Context context;
@@ -84,14 +86,22 @@ public class SigninActivity  extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result){
 
         Log.d("RESULT", result);
-        if(result.equals("success")) {
+        if(result.contains("success")) {
 
-                Intent i = new Intent(context, Home.class);
-                context.startActivity(i);
-;
-                Toast.makeText(context, "Successfuly Logged in !", Toast.LENGTH_SHORT).show();
-                progress.dismiss();
-            }
+            String a[] = result.split(" ");
+            int uid = Integer.parseInt(a[1]);
+            prefs = context.getSharedPreferences("file",0);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("user_id",uid);
+            editor.putInt("number_of_groups",0);
+            editor.putBoolean("logged_in",true);
+            editor.commit();
+            Intent i = new Intent(context, Home.class);
+            context.startActivity(i);
+            ;
+            Toast.makeText(context, "Successfuly Logged in !", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
+        }
 
         else
         {

@@ -3,6 +3,7 @@ package in.inocular.www.quicksplit;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import java.net.URLEncoder;
  */
 public class UpdateEntry extends AsyncTask<String,Void,String>  {
 
+    SharedPreferences prefs;
     ProgressDialog progress;
     private Context context;
     private int byGetOrPost = 0;
@@ -47,7 +49,7 @@ public class UpdateEntry extends AsyncTask<String,Void,String>  {
 
             Log.d("email", email);
             Log.d("password", password);
-            
+
             String link="http://inocular.in/php/insert.php";
             String data  = URLEncoder.encode("email", "UTF-8")
                     + "=" + URLEncoder.encode(email, "UTF-8");
@@ -85,9 +87,11 @@ public class UpdateEntry extends AsyncTask<String,Void,String>  {
         Log.d("RESULT", result);
         if(result.equals("success")) {
 
-
-
-
+            prefs = context.getSharedPreferences("file",0);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("number_of_groups",0);
+            editor.putBoolean("logged_in",true);
+            editor.commit();
 
             Intent i = new Intent(context, Home.class);
             context.startActivity(i);
