@@ -16,7 +16,8 @@ public class NewFriend extends ActionBarActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        Toast.makeText(getApplicationContext(),extras.getInt("Group_Id")+"",Toast.LENGTH_SHORT).show();
+        int itemId = extras.getInt("Group_Id");
+        Toast.makeText(getApplicationContext(),itemId + "",Toast.LENGTH_SHORT).show();
     }
 
     @Override
