@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -60,7 +61,7 @@ public class Home extends AppCompatActivity {
                 int itemId = menuItem.getItemId();
                 String grpName = menuItem.getTitle().toString();
                 switch(itemId) {
-                    case R.id.home:
+                    case R.id.nav_item_home:
                         break;
                     case R.id.nav_item_allExpense :
                         break;
@@ -144,5 +145,13 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
 

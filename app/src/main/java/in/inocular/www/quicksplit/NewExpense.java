@@ -20,8 +20,17 @@ import android.widget.ListView;
 public class NewExpense extends Activity implements View.OnClickListener {
 
     Button addExpense,paidBy,owings;
+    EditText title,total;
     final Context context = this;
-    int[][] expense;
+    int[][] expense = new int[5][5];
+
+
+
+    Bundle extras;
+    int grpId;
+    String grpName;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +47,19 @@ public class NewExpense extends Activity implements View.OnClickListener {
         paidBy = (Button) findViewById(R.id.paidBy);
         owings = (Button) findViewById(R.id.owings);
 
+        title = (EditText) findViewById(R.id.title);
+        total = (EditText) findViewById(R.id.total);
+
+        extras = getIntent().getExtras();
+        grpId = extras.getInt("Group_Id");
+        grpName = extras.getString("Group_Name");
+
 
         addExpense.setOnClickListener(this);
         paidBy.setOnClickListener(this);
         owings.setOnClickListener(this);
+
+        //Toast.makeText(getApplicationContext(),grpId+"",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -72,24 +90,31 @@ public class NewExpense extends Activity implements View.OnClickListener {
         listView.setAdapter(adapter);
 
 
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(popUpView);
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 for (int i = 0; i < 5; i++) {
-                    View view = listView.getChildAt(0);
+                    View view = listView.getChildAt(i);
                     EditText text = (EditText) view.findViewById(R.id.value);
                     expense[1][i] = Integer.parseInt(text.getText().toString());
                 }
             }
         });
+
+
+
         AlertDialog dialog = builder.create();
         dialog.show();
         Window window = dialog.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE| WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         int width = (int) (getResources().getDisplayMetrics().widthPixels*0.80);
         window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
     }
 
     private void displayPaymentPopup() {
@@ -109,7 +134,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 for (int i = 0; i < 5; i++) {
-                    View view = listView.getChildAt(0);
+                    View view = listView.getChildAt(i);
                     EditText text = (EditText) view.findViewById(R.id.value);
                     expense[0][i] = Integer.parseInt(text.getText().toString());
                 }

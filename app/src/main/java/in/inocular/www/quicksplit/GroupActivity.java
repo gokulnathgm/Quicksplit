@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -65,6 +66,20 @@ public class GroupActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
 
+                int id = menuItem.getItemId();
+                String grpName = menuItem.getTitle().toString();
+                switch(id) {
+                    case R.id.nav_item_home:
+                        launchHomeActivity();
+                        break;
+                    case R.id.nav_item_allExpense :
+                        break;
+                    default:
+                        if (itemId != id)
+                            launchGroupActivity(id,grpName);
+                        //Toast.makeText(getApplicationContext(), itemId + "", Toast.LENGTH_SHORT).show();
+                        break;
+                }
 
 /*
 
@@ -127,6 +142,8 @@ public class GroupActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -136,6 +153,8 @@ public class GroupActivity extends AppCompatActivity {
 
     public void launchAddExpenseActivity(MenuItem item) {
         Intent intent = new Intent(this,NewExpense.class);
+        intent.putExtra("Group_Id",itemId);
+        intent.putExtra("Group_Name",grpName);
         startActivity(intent);
     }
 
@@ -149,14 +168,25 @@ public class GroupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launchGroupActivity(MenuItem item) {
+    public void launchHomeActivity() {
+        Intent intent = new Intent(this,NewFriend.class);
+        startActivity(intent);
+    }
+
+    public void launchGroupActivity(int itemId,String grpName) {
         Intent intent = new Intent(this,GroupActivity.class);
+        intent.putExtra("Group_Id",itemId);
+        intent.putExtra("Group_Name",grpName);
         startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
