@@ -6,7 +6,9 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="in.inocular.www.quicksplit.NewFriend">
 
-    <TextView android:text="Activity to add new friend" android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/itemId"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package in.inocular.www.quicksplit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.HeaderViewListAdapter;
+import android.widget.ListView;
 
 
 public class GroupActivity extends AppCompatActivity {
@@ -73,6 +79,33 @@ public class GroupActivity extends AppCompatActivity {
          * Setup Drawer Toggle of the Toolbar
          */
 
+
+        final Menu navMenu = mNavigationView.getMenu();
+        SharedPreferences menuItems = getSharedPreferences("file", 0);
+        int num = menuItems.getInt("number_of_groups", 0);
+        String[] grp_names = new String[num];
+        int[] grp_id = new int[num];
+        final SubMenu subMenu = navMenu.addSubMenu("GROUPS");
+        for (int i=0;i<num;i++) {
+            grp_id[i] = menuItems.getInt("group_id" + i, 121);
+            grp_names[i] = menuItems.getString("group_name" + i, "No group");
+
+            MenuItem item = subMenu.add(0, grp_id[i], i, grp_names[i]);
+            item.setIcon(R.drawable.abc_btn_radio_to_on_mtrl_015);
+
+        }
+
+        for (int i=0,count = mNavigationView.getChildCount();i<count;i++){
+            final View child = mNavigationView.getChildAt(i);
+            if (child!= null && child instanceof ListView) {
+                final ListView menuView = (ListView) child;
+                final HeaderViewListAdapter adapter = (HeaderViewListAdapter) menuView.getAdapter();
+                final BaseAdapter wrapped = (BaseAdapter) adapter.getWrappedAdapter();
+                wrapped.notifyDataSetChanged();
+            }
+        }
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name, R.string.app_name);
@@ -96,7 +129,12 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     public void launchAddNewPersonActivity(MenuItem item) {
+        Bundle extras = getIntent().getExtras();
         Intent intent = new Intent(this,NewFriend.class);
+
+        int itemId = extras.getInt("Group_Id");
+        //Toast.makeText(getApplicationContext(), itemId + "", Toast.LENGTH_SHORT).show();
+        intent.putExtra("Group_Id",itemId);
         startActivity(intent);
     }
 
@@ -106,7 +144,13 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
     }
 }
+

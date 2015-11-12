@@ -1,9 +1,10 @@
 package in.inocular.www.quicksplit;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class NewFriend extends ActionBarActivity {
@@ -12,6 +13,10 @@ public class NewFriend extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_friend);
+
+
+        Bundle extras = getIntent().getExtras();
+        Toast.makeText(getApplicationContext(),extras.getInt("Group_Id")+"",Toast.LENGTH_SHORT).show();
     }
 
     @Override
