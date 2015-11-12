@@ -85,11 +85,14 @@ public class UpdateEntry extends AsyncTask<String,Void,String>  {
     protected void onPostExecute(String result){
 
         Log.d("RESULT", result);
-        if(result.equals("success")) {
+        if(result.contains("success")) {
 
+            String a[] = result.split(" ");
+            int uid = Integer.parseInt(a[1]);
             prefs = context.getSharedPreferences("file",0);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt("number_of_groups",0);
+            editor.putInt("user_id",uid);
             editor.putBoolean("logged_in",true);
             editor.commit();
 

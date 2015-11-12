@@ -46,10 +46,14 @@ public class CreateGroup extends AsyncTask<String,Void,String> {
 
             group = (String)arg0[0];
             Log.d("group name", group);
-
+            prefs = context.getSharedPreferences("file",0);
+            String user = String.valueOf(prefs.getInt("user_id", 0));
+            Log.d("user id", user);
             String link="http://inocular.in/php/creategroup.php";
             String data  = URLEncoder.encode("group", "UTF-8")
                     + "=" + URLEncoder.encode(group, "UTF-8");
+            data += "&" + URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(user, "UTF-8");
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();

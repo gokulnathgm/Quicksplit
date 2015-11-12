@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -16,8 +19,20 @@ public class NewFriend extends ActionBarActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        int itemId = extras.getInt("Group_Id");
+        final int itemId = extras.getInt("Group_Id");
         Toast.makeText(getApplicationContext(),itemId + "",Toast.LENGTH_SHORT).show();
+        Button add;
+        final EditText userid;
+        userid = (EditText)findViewById(R.id.userid);
+        add = (Button)findViewById(R.id.addfriend);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = userid.getText().toString();
+                String userid = String.valueOf(itemId);
+                new CreateFriend(NewFriend.this).execute(email,userid);
+            }
+        });
     }
 
     @Override
