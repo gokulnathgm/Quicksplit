@@ -28,6 +28,10 @@ public class GroupActivity extends AppCompatActivity {
     FragmentTransaction mFragmentTransaction;
 
 
+    Bundle extras;
+    int itemId;
+    String grpName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,12 @@ public class GroupActivity extends AppCompatActivity {
         /**
          * Setup click events on the Navigation View Items.
          */
+
+
+
+        extras = getIntent().getExtras();
+        itemId = extras.getInt("Group_Id");
+        grpName = extras.getString("Group_Name");
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -107,6 +117,7 @@ public class GroupActivity extends AppCompatActivity {
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(grpName);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name, R.string.app_name);
 
@@ -129,10 +140,10 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     public void launchAddNewPersonActivity(MenuItem item) {
-        Bundle extras = getIntent().getExtras();
+
         Intent intent = new Intent(this,NewFriend.class);
 
-        int itemId = extras.getInt("Group_Id");
+
         //Toast.makeText(getApplicationContext(), itemId + "", Toast.LENGTH_SHORT).show();
         intent.putExtra("Group_Id",itemId);
         startActivity(intent);

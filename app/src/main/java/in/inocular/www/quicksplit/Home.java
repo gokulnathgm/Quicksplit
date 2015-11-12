@@ -58,13 +58,14 @@ public class Home extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
 
                 int itemId = menuItem.getItemId();
+                String grpName = menuItem.getTitle().toString();
                 switch(itemId) {
                     case R.id.home:
                         break;
                     case R.id.nav_item_allExpense :
                         break;
                     default:
-                        launchGroupActivity(itemId);
+                        launchGroupActivity(itemId,grpName);
                         //Toast.makeText(getApplicationContext(), itemId + "", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -136,9 +137,10 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launchGroupActivity(int itemId) {
+    public void launchGroupActivity(int itemId,String grpName) {
         Intent intent = new Intent(this,GroupActivity.class);
         intent.putExtra("Group_Id",itemId);
+        intent.putExtra("Group_Name",grpName);
         startActivity(intent);
     }
 

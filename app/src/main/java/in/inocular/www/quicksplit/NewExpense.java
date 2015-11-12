@@ -3,13 +3,16 @@ package in.inocular.www.quicksplit;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -18,6 +21,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
 
     Button addExpense,paidBy,owings;
     final Context context = this;
+    int[][] expense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         View popUpView = inflater.inflate(R.layout.payment_popup, null);
 
 
-        ListView listView = (ListView) popUpView.findViewById(R.id.listView);
+        final ListView listView = (ListView) popUpView.findViewById(R.id.listView);
         String[] valuesForListView = {"Anil owes ", "Gokul owes", "Sai owes", "Divya owes", "Dhrisya owes"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.list_view_for_popup,R.id.nameOfGroupMember,valuesForListView);
         listView.setAdapter(adapter);
@@ -70,10 +74,20 @@ public class NewExpense extends Activity implements View.OnClickListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(popUpView);
-        builder.setPositiveButton("Ok", null);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < 5; i++) {
+                    View view = listView.getChildAt(0);
+                    EditText text = (EditText) view.findViewById(R.id.value);
+                    expense[1][i] = Integer.parseInt(text.getText().toString());
+                }
+            }
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
         Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE| WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         int width = (int) (getResources().getDisplayMetrics().widthPixels*0.80);
         window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
@@ -83,7 +97,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         View popUpView = inflater.inflate(R.layout.payment_popup, null);
 
 
-        ListView listView = (ListView) popUpView.findViewById(R.id.listView);
+        final ListView listView = (ListView) popUpView.findViewById(R.id.listView);
         String[] valuesForListView = {"Anil paid ", "Gokul paid", "Sai paid", "Divya paid", "Dhrisya paid"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.list_view_for_popup,R.id.nameOfGroupMember,valuesForListView);
         listView.setAdapter(adapter);
@@ -91,10 +105,20 @@ public class NewExpense extends Activity implements View.OnClickListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(popUpView);
-        builder.setPositiveButton("Ok", null);
-        AlertDialog dialog = builder.create();
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < 5; i++) {
+                    View view = listView.getChildAt(0);
+                    EditText text = (EditText) view.findViewById(R.id.value);
+                    expense[0][i] = Integer.parseInt(text.getText().toString());
+                }
+            }
+        });
+                AlertDialog dialog = builder.create();
         dialog.show();
         Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         int width = (int) (getResources().getDisplayMetrics().widthPixels*0.80);
         window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
