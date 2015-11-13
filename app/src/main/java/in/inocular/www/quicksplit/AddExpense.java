@@ -114,8 +114,9 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
                 editor.putString("member"+j,s[j]);
            }
            for(int j=1;j<l;j+=2){
-               editor.putInt("owe" + j, Integer.parseInt(s[j]));
+               editor.putInt("owe"+j, Integer.parseInt(s[j]));
            }
+           editor.putInt("number_of_members",l);
 
             Intent i = new Intent(context, GroupActivity.class);
             i.putExtra("Group_Id",Integer.parseInt(gid));
