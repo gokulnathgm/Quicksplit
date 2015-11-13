@@ -93,11 +93,13 @@ public class CreateGroup extends AsyncTask<String,Void,String> {
             editor.putInt("group_id"+num,id);
             editor.putString("group_name"+num,group);
             num++;
-            editor.putInt("number_of_groups",num);
+            editor.putInt("number_of_groups", num);
             editor.commit();
 
 
             Intent i = new Intent(context, GroupActivity.class);
+            i.putExtra("Group_Id", id);
+            i.putExtra("Group_Name", group);
             context.startActivity(i);
 
             Toast.makeText(context, "Group Created ", Toast.LENGTH_SHORT).show();

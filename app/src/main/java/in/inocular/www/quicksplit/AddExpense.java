@@ -20,6 +20,7 @@ import java.net.URLEncoder;
  */
 public class AddExpense  extends AsyncTask<String,Void,String> {
 
+    SharedPreferences prefs;
     String gid,gname;
     ProgressDialog progress;
     private Context context;
@@ -49,6 +50,8 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
             gid = (String)arg0[0];
             String uid = (String)arg0[4];
             String paid_owe = (String)arg0[5];
+            uid = uid.trim();
+            paid_owe = paid_owe.trim();
 
             Log.d("title",title);
             Log.d("gid",gid);
@@ -94,7 +97,25 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result){
 
         Log.d("RESULT", result);
-        if(result.equals("success")) {
+        if(result.equals("failure"))
+        {
+            Toast.makeText(context,"Error while adding expense",Toast.LENGTH_SHORT).show();
+            progress.dismiss();
+        }
+
+        else
+       {
+           String s[] = result.split(" ");
+           int l = s.length;
+           Log.d("length = "+l,"");
+           prefs = context.getSharedPreferences("file",0);
+           SharedPreferences.Editor editor = prefs.edit();
+           for(int j=0;j<l;j+=2){
+                editor.putString("member"+j,s[j]);
+           }
+           for(int j=1;j<l;j+=2){
+               editor.putInt("owe" + j, Integer.parseInt(s[j]));
+           }
 
             Intent i = new Intent(context, GroupActivity.class);
             i.putExtra("Group_Id",Integer.parseInt(gid));
@@ -104,10 +125,6 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
             progress.dismiss();
         }
 
-        else
-        {
-            Toast.makeText(context,"Error while adding expense",Toast.LENGTH_SHORT).show();
-            progress.dismiss();
-        }
+
     }
 }

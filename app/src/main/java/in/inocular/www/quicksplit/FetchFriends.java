@@ -86,6 +86,7 @@ public class FetchFriends extends AsyncTask<String,Void,String> {
             progress.dismiss();
         }
         else {
+            result = result.trim();
             prefs = context.getSharedPreferences("file",0);
             SharedPreferences.Editor editor = prefs.edit();
             String[] members = result.split(" ");
@@ -95,7 +96,7 @@ public class FetchFriends extends AsyncTask<String,Void,String> {
                 group_members+=members[i]+" ";
             for(int i=1;i<members.length;i+=2)
                 members_id+=members[i]+" ";
-            Log.d("group members", group_members);
+            Log.d("group members"+members.length, group_members);
             Log.d("members id", members_id);
             editor.putString("group_members",group_members);
             editor.putString("members_id",members_id);
