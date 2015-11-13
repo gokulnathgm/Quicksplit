@@ -90,9 +90,15 @@ public class FetchFriends extends AsyncTask<String,Void,String> {
             SharedPreferences.Editor editor = prefs.edit();
             String[] members = result.split(" ");
             String group_members="";
-            for(int i=1;i<members.length;i++)
+            String members_id="";
+            for(int i=0;i<members.length;i+=2)
                 group_members+=members[i]+" ";
+            for(int i=1;i<members.length;i+=2)
+                members_id+=members[i]+" ";
+            Log.d("group members", group_members);
+            Log.d("members id", members_id);
             editor.putString("group_members",group_members);
+            editor.putString("members_id",members_id);
             editor.commit();
             Toast.makeText(context, "Group fetched ", Toast.LENGTH_SHORT).show();
             progress.dismiss();
