@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -23,8 +25,9 @@ public class NewExpense extends Activity implements View.OnClickListener {
     EditText title,total;
     final Context context = this;
     int[][] expense = new int[5][5];
-
-
+    SharedPreferences prefs;
+    String members;
+    int l;
 
     Bundle extras;
     int grpId;
@@ -54,6 +57,12 @@ public class NewExpense extends Activity implements View.OnClickListener {
         grpId = extras.getInt("Group_Id");
         grpName = extras.getString("Group_Name");
 
+        String gid = String.valueOf(grpId);
+        new FetchFriends(NewExpense.this).execute(gid);
+
+        prefs = getSharedPreferences("file", 0);
+        members = prefs.getString("group_members", "");
+        Log.d("members",members);
 
         addExpense.setOnClickListener(this);
         paidBy.setOnClickListener(this);
@@ -83,9 +92,10 @@ public class NewExpense extends Activity implements View.OnClickListener {
         LayoutInflater inflater = LayoutInflater.from(context);
         View popUpView = inflater.inflate(R.layout.payment_popup, null);
 
-
         final ListView listView = (ListView) popUpView.findViewById(R.id.listView);
-        String[] valuesForListView = {"Anil owes ", "Gokul owes", "Sai owes", "Divya owes", "Dhrisya owes"};
+        String[] k = members.split(" ");
+        l = k.length;
+        String[] valuesForListView = k;//{"Anil owes ", "Gokul owes", "Sai owes", "Divya owes", "Dhrisya owes"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.list_view_for_popup,R.id.nameOfGroupMember,valuesForListView);
         listView.setAdapter(adapter);
 
@@ -97,7 +107,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < l; i++) {
                     View view = listView.getChildAt(i);
                     EditText text = (EditText) view.findViewById(R.id.value);
                     expense[1][i] = Integer.parseInt(text.getText().toString());
@@ -123,7 +133,9 @@ public class NewExpense extends Activity implements View.OnClickListener {
 
 
         final ListView listView = (ListView) popUpView.findViewById(R.id.listView);
-        String[] valuesForListView = {"Anil paid ", "Gokul paid", "Sai paid", "Divya paid", "Dhrisya paid"};
+        String[] k = members.split(" ");
+        l = k.length;
+        String[] valuesForListView = k;//{"Anil paid ", "Gokul paid", "Sai paid", "Divya paid", "Dhrisya paid"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.list_view_for_popup,R.id.nameOfGroupMember,valuesForListView);
         listView.setAdapter(adapter);
 
@@ -133,7 +145,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < l; i++) {
                     View view = listView.getChildAt(i);
                     EditText text = (EditText) view.findViewById(R.id.value);
                     expense[0][i] = Integer.parseInt(text.getText().toString());
