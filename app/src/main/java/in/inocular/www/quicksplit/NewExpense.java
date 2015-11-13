@@ -26,7 +26,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
     final Context context = this;
     int[][] expense = new int[5][5];
     SharedPreferences prefs;
-    String members;
+    String members,gid;
     int l;
 
     Bundle extras;
@@ -57,7 +57,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         grpId = extras.getInt("Group_Id");
         grpName = extras.getString("Group_Name");
 
-        String gid = String.valueOf(grpId);
+        gid = String.valueOf(grpId);
         new FetchFriends(NewExpense.this).execute(gid);
 
         prefs = getSharedPreferences("file", 0);
@@ -76,8 +76,13 @@ public class NewExpense extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addExpenseButton:
-                Intent i = new Intent(this, GroupActivity.class);
-                startActivity(i);
+                String expensetitle = title.getText().toString();
+                String totalexpense = title.getText().toString();
+                new AddExpense(NewExpense.this).execute(gid,expensetitle,totalexpense,grpName);
+                /*Intent i = new Intent(this, GroupActivity.class);
+                i.putExtra("Group_Id",grpId);
+                i.putExtra("Group_Name",grpName);
+                startActivity(i);*/
                 break;
             case R.id.paidBy:
                 displayPaymentPopup();
