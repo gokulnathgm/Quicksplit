@@ -169,7 +169,7 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     public void launchHomeActivity() {
-        Intent intent = new Intent(this,NewFriend.class);
+        Intent intent = new Intent(this,Home.class);
         startActivity(intent);
     }
 

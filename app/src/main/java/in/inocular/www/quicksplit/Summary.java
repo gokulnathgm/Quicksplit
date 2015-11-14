@@ -1,5 +1,6 @@
 package in.inocular.www.quicksplit;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class Summary extends Fragment {
 
+    int result=0;
 
     RecyclerView mRecyclerView;
     static  RecyclerView.Adapter mAdapter;
@@ -26,9 +28,8 @@ public class Summary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.activity_summary,null);
         TextView getsBack = (TextView) view.findViewById(R.id.getsBack);
-        TextView payBack = (TextView) view.findViewById(R.id.payBack);
-        getsBack.setText("You gets Back: 600");
-        payBack.setText("You need to pay: 100");
+       // TextView payBack = (TextView) view.findViewById(R.id.payBack);
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -47,18 +48,54 @@ public class Summary extends Fragment {
             }
         });
 
+        if (result>0)
+            getsBack.setText("You gets Back: " + "\u20B9" + result);
+        else if (result<0)
+            getsBack.setText("You needs to pay: " + "\u20B9" + result);
+        else
+            getsBack.setText("All your balances have been settled");
+        //payBack.setText("You need to pay: 100");
+
         return view;
     }
 
 
 
     private ArrayList<DataObject> getDataSet() {
+        SharedPreferences prefs = getActivity().getApplicationContext().getSharedPreferences("file", 0);
+        int n = prefs.getInt("number_of_members", 4);
         ArrayList results = new ArrayList<DataObject>();
-        String[] names = {"Gokul Nath","Aravind Sai", "Divya", "Dhrisya"};
-        for (int index = 0; index < 4; index++) {
-            DataObject obj = new DataObject(names[index],"owes you",index*100);
-            results.add(index, obj);
+        String message,names[] = new String[n]; // = {"Gokul Nath","Aravind Sai", "Divya", "Dhrisya"};
+        int[] owe = new int[n];
+        //System.out.println();
+        for (int index = 0; index < n; index++) {
+            names[index] = prefs.getString("member" + index, "defValue");
+            owe[index] = prefs.getInt("owe" + index, 0);
+            //  System.out.println(" || " + names + " - - - " + owe + " | |");
         }
+        GroupCalculations gC = new GroupCalculations();
+        int[][] balances = gC.getTransactionsFromNetOwings(owe);
+        names[0] = "You";
+
+        for (int i=0,t=0;i<n;i++) {
+            for (int j=i;j<n;j++) {
+                if (balances[i][j]<0) {
+                    DataObject obj = new DataObject(names[i] + " owes " + names[j],"",Math.abs(balances[i][j]));
+                    results.add(t, obj);
+                    t++;
+                } else if (balances[i][j] > 0) {
+                    DataObject obj = new DataObject(names[j] + " owes " + names[i],"",Math.abs(balances[i][j]));
+                    results.add(t, obj);
+                    t++;
+                }
+                if (i==0) {
+                    result += balances[0][j];
+                }
+            }
+
+        }
+
+
         return results;
     }
 

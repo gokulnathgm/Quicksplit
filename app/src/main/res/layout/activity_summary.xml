@@ -16,7 +16,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="You gets back 600"
             android:id="@+id/getsBack"
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical|left"
@@ -26,7 +25,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="You need to pay 0"
             android:id="@+id/payBack"
             android:layout_weight="0.50"
             android:layout_below="@+id/getsBack"

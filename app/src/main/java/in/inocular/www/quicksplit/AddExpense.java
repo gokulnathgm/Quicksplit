@@ -110,13 +110,15 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
            Log.d("length = "+l,"");
            prefs = context.getSharedPreferences("file",0);
            SharedPreferences.Editor editor = prefs.edit();
-           for(int j=0;j<l;j+=2){
-                editor.putString("member"+j,s[j]);
+           for(int j=0,k=0;j<l;j+=2){
+                editor.putString("member"+(k++),s[j]);
            }
-           for(int j=1;j<l;j+=2){
-               editor.putInt("owe"+j, Integer.parseInt(s[j]));
+           for(int j=1,k=0;j<l;j+=2){
+               editor.putInt("owe"+(k++), Integer.parseInt(s[j]));
            }
-           editor.putInt("number_of_members",l);
+           editor.putInt("number_of_members", l);
+           editor.commit();
+
 
             Intent i = new Intent(context, GroupActivity.class);
             i.putExtra("Group_Id",Integer.parseInt(gid));
