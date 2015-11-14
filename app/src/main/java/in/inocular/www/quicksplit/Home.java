@@ -139,10 +139,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void launchGroupActivity(int itemId,String grpName) {
-        Intent intent = new Intent(this,GroupActivity.class);
-        intent.putExtra("Group_Id",itemId);
-        intent.putExtra("Group_Name",grpName);
-        startActivity(intent);
+        new FetchAllOwings(Home.this,grpName).execute(String.valueOf(itemId));
     }
 
     @Override
