@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,12 +59,10 @@ public class NewExpense extends Activity implements View.OnClickListener {
         gid = String.valueOf(grpId);
         new FetchFriends(NewExpense.this).execute(gid);
 
-        prefs = getSharedPreferences("file", 0);
-        members = prefs.getString("group_members", "");
-        uid = prefs.getString("members_id", "");
 
-        Log.d("members",members);
-        Log.d("members id",uid);
+
+     //   Log.d("members",members);
+     //   Log.d("members id",uid);
 
         addExpense.setOnClickListener(this);
         paidBy.setOnClickListener(this);
@@ -77,6 +74,11 @@ public class NewExpense extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        prefs = getSharedPreferences("file", 0);
+        members = prefs.getString("group_members", "");
+        uid = prefs.getString("members_id", "");
+
         switch (v.getId()) {
             case R.id.addExpenseButton:
                 String expensetitle = title.getText().toString();

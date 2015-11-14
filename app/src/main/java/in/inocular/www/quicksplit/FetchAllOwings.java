@@ -49,7 +49,7 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
             gid = (String)arg0[0];
             Log.d("gid",gid);
 
-            String link="http://inocular.in/php/addexpense.php";
+            String link="http://inocular.in/php/test.php";
             String data  = URLEncoder.encode("gid", "UTF-8")
                     + "=" + URLEncoder.encode(gid, "UTF-8");
 

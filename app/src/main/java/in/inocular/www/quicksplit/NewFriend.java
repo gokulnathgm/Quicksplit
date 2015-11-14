@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class NewFriend extends ActionBarActivity {
@@ -20,7 +19,7 @@ public class NewFriend extends ActionBarActivity {
 
         Bundle extras = getIntent().getExtras();
         final int itemId = extras.getInt("Group_Id");
-        Toast.makeText(getApplicationContext(),itemId + "",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),itemId + "",Toast.LENGTH_SHORT).show();
         Button add;
         final EditText userid;
         userid = (EditText)findViewById(R.id.userid);

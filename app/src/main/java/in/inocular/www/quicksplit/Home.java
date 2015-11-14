@@ -49,6 +49,7 @@ public class Home extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+
         /**
          * Setup click events on the Navigation View Items.
          */

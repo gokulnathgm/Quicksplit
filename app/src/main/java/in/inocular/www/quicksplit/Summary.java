@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,14 +43,14 @@ public class Summary extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
                 //Log.i(LOG_TAG, " Clicked on Item " + position);
-                Toast.makeText(getActivity(), " Clicked on Item " + position, Toast.LENGTH_SHORT).show();
+         //       Toast.makeText(getActivity(), " Clicked on Item " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
         if (result>0)
             getsBack.setText("You gets Back: " + "\u20B9" + result);
         else if (result<0)
-            getsBack.setText("You needs to pay: " + "\u20B9" + result);
+            getsBack.setText("You needs to pay: " + "\u20B9" + ((-1)*result));
         else
             getsBack.setText("All your balances have been settled");
         //payBack.setText("You need to pay: 100");
@@ -69,13 +68,14 @@ public class Summary extends Fragment {
         int[] owe = new int[n];
         //System.out.println();
         for (int index = 0; index < n; index++) {
-            names[index] = prefs.getString("member" + index, "defValue");
+            String[] temp = prefs.getString("member" + index, "").split("@");
+            names[index] = temp[0];
             owe[index] = prefs.getInt("owe" + index, 0);
             //  System.out.println(" || " + names + " - - - " + owe + " | |");
         }
         GroupCalculations gC = new GroupCalculations();
         int[][] balances = gC.getTransactionsFromNetOwings(owe);
-        names[0] = "You";
+
 
         for (int i=0,t=0;i<n;i++) {
             for (int j=i;j<n;j++) {

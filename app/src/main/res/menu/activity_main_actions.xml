@@ -5,6 +5,7 @@
     android:layout_width="fill_parent">
 
     <!-- New expense -->
+
     <item android:id="@+id/action_new"
         android:icon="@drawable/ic_action_new"
         android:title="Add Expense"

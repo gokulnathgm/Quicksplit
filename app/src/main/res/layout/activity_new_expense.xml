@@ -68,7 +68,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="143dp" />
 
-        <Button
+      <!--  <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Cancel"
@@ -77,6 +77,6 @@
             android:background="@color/secondary"
             android:layout_marginTop="38dp"
             android:layout_below="@+id/addExpenseButton"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true" />-->
 
     </RelativeLayout>
