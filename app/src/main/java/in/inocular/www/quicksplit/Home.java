@@ -93,7 +93,7 @@ public class Home extends AppCompatActivity {
         int[] grp_id = new int[num];
         final SubMenu subMenu = navMenu.addSubMenu("GROUPS");
         for (int i=0;i<num;i++) {
-            grp_id[i] = menuItems.getInt("group_id" + i, 121);
+            grp_id[i] = menuItems.getInt("group_id" + i, 0);
             grp_names[i] = menuItems.getString("group_name" + i, "No group");
 
             MenuItem item = subMenu.add(0, grp_id[i], i, grp_names[i]);

@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
-    TextView forgot,register;
-    Button login;
+    Button login,signup;
     EditText email,password;
     String mail,pass;
     SharedPreferences prefs;
@@ -22,21 +21,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        forgot = (TextView) findViewById(R.id.forgot);
-        register = (TextView) findViewById(R.id.register);
+        signup = (Button) findViewById(R.id.signup);
         login = (Button) findViewById(R.id.login);
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
 
-        forgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,ForgotPassword.class);
-                startActivity(i);
-            }
-        });
-
-        register.setOnClickListener(new View.OnClickListener() {
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent j = new Intent(MainActivity.this, RegisterUser.class);
