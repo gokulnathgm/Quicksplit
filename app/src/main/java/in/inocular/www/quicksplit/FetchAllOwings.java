@@ -49,9 +49,16 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
             gid = (String)arg0[0];
             Log.d("gid",gid);
 
-            String link="http://inocular.in/php/test.php";
+            prefs = context.getSharedPreferences("file", 0);
+            int user = prefs.getInt("user_id",0);
+            String uid  = Integer.toString(user);
+            Log.d("uid",uid);
+
+            String link="http://inocular.in/php/listexpense.php";
             String data  = URLEncoder.encode("gid", "UTF-8")
                     + "=" + URLEncoder.encode(gid, "UTF-8");
+            data += "&" + URLEncoder.encode("uid", "UTF-8")
+                    + "=" + URLEncoder.encode(uid, "UTF-8");
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
@@ -90,7 +97,11 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
 
         else
         {
-            String s[] = result.split(" ");
+            String p[] = result.split("%");
+            p[0] = p[0].trim();
+            p[1] = p[1].trim();
+
+            String s[] = p[0].split(" ");
             int l = s.length;
             Log.d("length = "+l,"");
             prefs = context.getSharedPreferences("file",0);
@@ -102,6 +113,17 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
                 editor.putInt("owe"+(k++), Integer.parseInt(s[j]));
             }
             editor.putInt("number_of_members", l);
+
+            String exp[] = p[1].split(" ");
+            l = exp.length;
+            Log.d("length = "+l,"");
+            for(int j=0,k=0;j<l;j+=2){
+                editor.putString("title"+(k++),s[j]);
+            }
+            for(int j=1,k=0;j<l;j+=2){
+                editor.putInt("owings"+(k++), Integer.parseInt(s[j]));
+            }
+            editor.putInt("number_of_transactions", l);
             editor.commit();
 
 
