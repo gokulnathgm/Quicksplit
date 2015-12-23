@@ -62,7 +62,7 @@ public class Summary extends Fragment {
 
     private ArrayList<DataObject> getDataSet() {
         SharedPreferences prefs = getActivity().getApplicationContext().getSharedPreferences("file", 0);
-        int n = prefs.getInt("number_of_members", 4);
+        int n = prefs.getInt("number_of_members", 0);
         ArrayList results = new ArrayList<DataObject>();
         String message,names[] = new String[n]; // = {"Gokul Nath","Aravind Sai", "Divya", "Dhrisya"};
         int[] owe = new int[n];
