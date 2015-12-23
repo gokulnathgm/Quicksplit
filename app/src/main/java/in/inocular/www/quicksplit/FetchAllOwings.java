@@ -99,8 +99,6 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
         {
             String p[] = result.split("%");
             int len = p.length;
-            /*p[0] = p[0].trim();
-            p[1] = p[1].trim();*/
 
             String s[] = p[0].split("~");
             int l = s.length;
