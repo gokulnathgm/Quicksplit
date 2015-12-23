@@ -88,14 +88,24 @@ public class SigninActivity  extends AsyncTask<String,Void,String> {
         Log.d("RESULT", result);
         if(result.contains("success")) {
 
-            String a[] = result.split(" ");
+            String a[] = result.split("%");
             int uid = Integer.parseInt(a[1]);
             prefs = context.getSharedPreferences("file",0);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt("user_id",uid);
-            editor.putInt("number_of_groups",0);
+
+            int l = a.length;
+            Log.d("length = "+l,"");
+            for(int j=2,k=0;j<l;j+=2){
+                editor.putInt("group_id" + (k++), Integer.parseInt(a[j]));
+            }
+            for(int j=3,k=0;j<l;j+=2){
+                editor.putString("group_name"+(k++), a[j]);
+            }
+            editor.putInt("number_of_groups", (l-2)/2);
             editor.putBoolean("logged_in",true);
             editor.commit();
+
             Intent i = new Intent(context, Home.class);
             context.startActivity(i);
             ;

@@ -36,7 +36,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
-
          //Setup the DrawerLayout and NavigationView
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
