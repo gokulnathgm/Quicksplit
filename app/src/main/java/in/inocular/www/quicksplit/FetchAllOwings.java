@@ -98,10 +98,11 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
         else
         {
             String p[] = result.split("%");
-            p[0] = p[0].trim();
-            p[1] = p[1].trim();
+            int len = p.length;
+            /*p[0] = p[0].trim();
+            p[1] = p[1].trim();*/
 
-            String s[] = p[0].split(" ");
+            String s[] = p[0].split("~");
             int l = s.length;
             Log.d("length = "+l,"");
             prefs = context.getSharedPreferences("file",0);
@@ -112,18 +113,19 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
             for(int j=1,k=0;j<l;j+=2){
                 editor.putInt("owe"+(k++), Integer.parseInt(s[j]));
             }
-            editor.putInt("number_of_members", l);
-
-            String exp[] = p[1].split(" ");
-            l = exp.length;
-            Log.d("length = "+l,"");
-            for(int j=0,k=0;j<l;j+=2){
-                editor.putString("title"+(k++),s[j]);
+            editor.putInt("number_of_members", l/2);
+            if(len>1) {
+                String exp[] = p[1].split("~");
+                l = exp.length;
+                Log.d("length = " + l, "");
+                for (int j = 0, k = 0; j < l; j += 2) {
+                    editor.putString("title" + (k++), exp[j]);
+                }
+                for (int j = 1, k = 0; j < l; j += 2) {
+                    editor.putInt("owings" + (k++), Integer.parseInt(exp[j]));
+                }
+                editor.putInt("number_of_transactions", l / 2);
             }
-            for(int j=1,k=0;j<l;j+=2){
-                editor.putInt("owings"+(k++), Integer.parseInt(s[j]));
-            }
-            editor.putInt("number_of_transactions", l);
             editor.commit();
 
 
