@@ -46,15 +46,24 @@ public class UpdateEntry extends AsyncTask<String,Void,String>  {
 
             String email = (String)arg0[0];
             String password = (String)arg0[1];
+            String name = (String)arg0[2];
+            String phone = (String)arg0[3];
 
             Log.d("email", email);
             Log.d("password", password);
+            Log.d("name", name);
+            Log.d("phone", phone);
+
 
             String link="http://inocular.in/php/insert.php";
             String data  = URLEncoder.encode("email", "UTF-8")
                     + "=" + URLEncoder.encode(email, "UTF-8");
             data += "&" + URLEncoder.encode("password", "UTF-8")
                     + "=" + URLEncoder.encode(password, "UTF-8");
+            data += "&" + URLEncoder.encode("name", "UTF-8")
+                    + "=" + URLEncoder.encode(name, "UTF-8");
+            data += "&" + URLEncoder.encode("phone", "UTF-8")
+                    + "=" + URLEncoder.encode(phone, "UTF-8");
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();

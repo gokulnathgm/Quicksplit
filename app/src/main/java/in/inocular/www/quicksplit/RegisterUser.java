@@ -24,17 +24,14 @@ public class RegisterUser extends Activity {
         number = (EditText)findViewById(R.id.phonenumber);
         signup = (Button)findViewById(R.id.signup);
 
-        email = mail.getText().toString();
-        password = pass.getText().toString();
-        name = fullname.getText().toString();
-        phone = number.getText().toString();
-
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 email = mail.getText().toString();
                 password = pass.getText().toString();
-                new UpdateEntry(RegisterUser.this).execute(email,password);
+                name = fullname.getText().toString();
+                phone = number.getText().toString();
+                new UpdateEntry(RegisterUser.this).execute(email,password,name,phone);
             }
         });
     }
