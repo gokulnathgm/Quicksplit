@@ -71,6 +71,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
 
         members = members + "Multiple_People...";
         k = members.split(" ");
+        l = k.length-1;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,k);
         spinner.setAdapter(adapter);
 
@@ -209,6 +210,14 @@ public class NewExpense extends Activity implements View.OnClickListener {
             }
             expense[0][pos] = Integer.parseInt(totalexpense);
         }
+
+        for(int i=0;i<l;i++){
+            paid_owe+=String.valueOf(expense[0][i])+" ";
+            paid_owe+=String.valueOf(expense[1][i])+" ";
+        }
+        Log.d("paid-owe",paid_owe);
+        new AddExpense(NewExpense.this,grpName).execute(gid,expensetitle,totalexpense,grpName,uid,paid_owe);
+
         for(int i=0;i<k.length-1;i++) {
             Log.d("",expense[0][i] + " ---------" + expense[1][i]+"\n");
         }

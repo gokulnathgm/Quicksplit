@@ -93,6 +93,7 @@ public class SigninActivity  extends AsyncTask<String,Void,String> {
             prefs = context.getSharedPreferences("file",0);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt("user_id",uid);
+            editor.putBoolean("logged_in",true);
             editor.commit();
 
             Intent i = new Intent(context, Home.class);
