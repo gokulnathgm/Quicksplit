@@ -1,30 +1,115 @@
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="25dp"
-        tools:context="com.example.anil.myapplication.NewExpense">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp"
+    android:orientation="vertical"
+    tools:context="com.example.anil.myapplication.NewExpense">
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/title"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="35dp"
-            android:hint="Title of expense" />
 
-        <EditText
-            android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How much?"
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/howMuch" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/total"
+        android:hint="Total amount"
+        android:layout_below="@+id/title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Who Paid?"
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/whoPaid" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Purpose?"
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/purpose" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:hint="eg:- Lunch at Paragon" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/total"
-            android:hint="Total amount"
-            android:layout_below="@+id/title"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="20dp" />
+            android:text="For whom?"
+            android:textSize="15dp"
+            android:id="@+id/forWhom"
+            android:layout_weight="0.50" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Split Bill"
+            style="@style/Theme.AppCompat.Dialog"
+            android:id="@+id/owings"
+            android:textColor="@color/white"
+            android:background="@color/primaryLight"
+            android:minWidth="80dip"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Expense"
+        style="@style/BtnTextColor"
+        android:background="@color/secondary"
+        android:id="@+id/addExpenseButton"
+        android:layout_below="@+id/total"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp" />
+
+
+
+
+
+
+
+
+
+
+
+    <!--
+
+
+
+
 
 
         <Button
@@ -42,41 +127,12 @@
             android:background="@color/primary"
             android:minWidth="80dip" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Owings"
-            android:id="@+id/owings"
-            android:textColor="@color/white"
-            android:layout_alignTop="@+id/paidBy"
-            android:layout_marginRight="25dp"
-            android:layout_alignRight="@+id/addExpenseButton"
-            android:layout_alignEnd="@+id/addExpenseButton"
-            android:background="@color/primary"
-            android:minWidth="80dip"/>
 
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Expense"
-            style="@style/BtnTextColor"
-            android:background="@color/secondary"
-            android:id="@+id/addExpenseButton"
-            android:layout_below="@+id/total"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="143dp" />
 
-      <!--  <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            style="@style/BtnTextColor"
-            android:id="@+id/cancel"
-            android:background="@color/secondary"
-            android:layout_marginTop="38dp"
-            android:layout_below="@+id/addExpenseButton"
-            android:layout_centerHorizontal="true" />-->
 
-    </RelativeLayout>
+-->
+
+
+
+</LinearLayout>

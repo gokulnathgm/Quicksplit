@@ -9,10 +9,17 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#FFCC00</item>
+        <item name="android:textColorPrimary">#000</item>
+
+    </style>
 
     <color name="primaryDark">#346063</color>
     <color name="primary">#346A6F</color>
     <color name="secondary">#449094</color>
+    <color name="primaryLight">#4BCAD3</color>
+    <color name="arrowColor">#ED1C24</color>
     <color name="white">#FFF</color>
 
 </resources>

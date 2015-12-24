@@ -16,11 +16,11 @@
         <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-a59c2e1d31b560bb45ce8f3140179ae161e8c783.jar" />
     </item>
     <item
-        jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/support-v13/22.2.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/classes-9c829832c5f24cab6c3667e10d4d563a901880c6.jar" />
+        sha1="9aa93835393824b436f366120c9ba8a0260ce75d">
+        <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/classes-95f19494f7868462217c303b9035f7c36a592e0c.jar" />
     </item>
     <item
         jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
@@ -30,18 +30,11 @@
         <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-11673891a30b18b96d4ad1358294479d729f30d0.jar" />
     </item>
     <item
-        jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars/classes.jar"
+        jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
-        <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/classes-f1991b5124579e10f4a91df7cb16f3390ae22263.jar" />
-    </item>
-    <item
-        jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/support-v13/22.2.0/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9aa93835393824b436f366120c9ba8a0260ce75d">
-        <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/classes-95f19494f7868462217c303b9035f7c36a592e0c.jar" />
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/classes-9c829832c5f24cab6c3667e10d4d563a901880c6.jar" />
     </item>
     <item
         jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
@@ -56,6 +49,13 @@
         revision="22.0.1"
         sha1="79a5b6d9fbab3b5fb4c6f86a1ed7a17722fd937b">
         <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-2e73387fe9578a4944e42b5d02cf169a2656675c.jar" />
+    </item>
+    <item
+        jar="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="/media/anil/CEF6E262F6E24A73/Projects/QuickSplit/quicksplit/app/build/intermediates/pre-dexed/debug/classes-f1991b5124579e10f4a91df7cb16f3390ae22263.jar" />
     </item>
 
 </items>
