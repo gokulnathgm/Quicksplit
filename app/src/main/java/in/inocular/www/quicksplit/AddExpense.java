@@ -123,6 +123,7 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
 
            int num = prefs.getInt("number_of_transactions",0);
            num++;
+           Log.d("numberrrrrrr "+title+" "+userowe,"");
            editor.putString("title" + num, title);
            editor.putInt("owings"+num,userowe);
            editor.putInt("number_of_transactions",num);
