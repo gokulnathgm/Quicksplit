@@ -21,15 +21,16 @@ import java.net.URLEncoder;
 public class AddExpense  extends AsyncTask<String,Void,String> {
 
     SharedPreferences prefs;
-    String gid,gname;
+    String gid,gname,title;int userowe;
     ProgressDialog progress;
     private Context context;
     private int byGetOrPost = 0;
     //flag 0 means get and 1 means post.(By default it is get.)
-    public AddExpense(Context context,String gname) {
+    public AddExpense(Context context,String gname,int userowe) {
         this.gname = gname;
         this.context = context; //this.statuss = status;
         progress= new ProgressDialog(this.context);
+        this.userowe = userowe;
     }
 
     protected void onPreExecute(){
@@ -46,7 +47,7 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
     protected String doInBackground(String... arg0) {
 
         try{
-            String title = (String)arg0[1];
+            title = (String)arg0[1];
             gid = (String)arg0[0];
             String uid = (String)arg0[4];
             String paid_owe = (String)arg0[5];
@@ -58,6 +59,7 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
             Log.d("uid",uid);
             Log.d("paid_owe",paid_owe);
             Log.d("gname",gname);
+
 
             String link="http://inocular.in/php/addexpense.php";
             String data  = URLEncoder.encode("title", "UTF-8")
@@ -118,6 +120,13 @@ public class AddExpense  extends AsyncTask<String,Void,String> {
                editor.putInt("owe"+(k++), Integer.parseInt(s[j]));
            }
            editor.putInt("number_of_members", l);
+
+           int num = prefs.getInt("number_of_transactions",0);
+           num++;
+           editor.putString("title" + num, title);
+           editor.putInt("owings"+num,userowe);
+           editor.putInt("number_of_transactions",num);
+
            editor.commit();
 
 

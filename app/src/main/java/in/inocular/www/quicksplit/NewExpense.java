@@ -37,7 +37,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
     int l,temp[];
 
     Bundle extras;
-    int grpId;
+    int grpId,loc = 0,userowe;
     Spinner spinner;
     String grpName;
     String[] k;
@@ -64,7 +64,14 @@ public class NewExpense extends Activity implements View.OnClickListener {
         prefs = getSharedPreferences("file", 0);
         members = prefs.getString("group_members", "");
         uid = prefs.getString("members_id", "");
-
+        int user = prefs.getInt("user_id",0);
+        String arr[] = uid.split(" ");
+        for (int i=0;i<arr.length;i++){
+            if(user==Integer.parseInt(arr[i])){
+                loc = i;
+                break;
+            }
+        }
         spinner = (Spinner) findViewById(R.id.spinner);
 
         //ArrayAdapter<String> adapter = ArrayAdapter.createFromResource(this, R.array.object_array, android.R.layout.simple_spinner_item);
@@ -80,6 +87,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
             expense[0][i] = 0;
             expense[1][i] = 0;
         }
+        userowe = expense[0][loc]-expense[1][loc];
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -216,7 +224,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
             paid_owe+=String.valueOf(expense[1][i])+" ";
         }
         Log.d("paid-owe",paid_owe);
-        new AddExpense(NewExpense.this,grpName).execute(gid,expensetitle,totalexpense,grpName,uid,paid_owe);
+        new AddExpense(NewExpense.this,grpName,userowe).execute(gid,expensetitle,totalexpense,grpName,uid,paid_owe);
 
         for(int i=0;i<k.length-1;i++) {
             Log.d("",expense[0][i] + " ---------" + expense[1][i]+"\n");
