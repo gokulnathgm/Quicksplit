@@ -2,7 +2,6 @@ package in.inocular.www.quicksplit;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -91,8 +90,9 @@ public class FetchFriends extends AsyncTask<String,Void,String> {
             String[] members = result.split("%");
             String group_members="";
             String members_id="";
-            for(int i=0;i<members.length;i+=2)
-                group_members+=members[i]+" ";
+            for(int i=0;i<members.length;i+=2){
+                String arr[] = members[i].split(" ");
+                group_members+=arr[0]+"%";}
             for(int i=1;i<members.length;i+=2)
                 members_id+=members[i]+" ";
             Log.d("group members"+members.length, group_members);

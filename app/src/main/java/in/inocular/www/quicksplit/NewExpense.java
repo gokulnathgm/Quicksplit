@@ -31,7 +31,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
     Button addExpense,paidBy,owings;
     EditText title,total;
     final Context context = this;
-    int[][] expense = new int[5][5];
+    int[][] expense = new int[50][50];
     SharedPreferences prefs;
     String members,gid,uid,paid_owe="";
     int l,temp[];
@@ -70,7 +70,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         //ArrayAdapter<String> adapter = ArrayAdapter.createFromResource(this, R.array.object_array, android.R.layout.simple_spinner_item);
 
         members = members + "Multiple_People...";
-        k = members.split(" ");
+        k = members.split("%");
         l = k.length-1;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,k);
         spinner.setAdapter(adapter);

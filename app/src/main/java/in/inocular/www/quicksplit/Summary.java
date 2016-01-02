@@ -68,8 +68,8 @@ public class Summary extends Fragment {
         int[] owe = new int[n];
         //System.out.println();
         for (int index = 0; index < n; index++) {
-            String[] temp = prefs.getString("member" + index, "").split("@");
-            names[index] = temp[0];
+            names[index] = prefs.getString("member" + index, "");
+            //names[index] = temp[0];
             owe[index] = prefs.getInt("owe" + index, 0);
             //  System.out.println(" || " + names + " - - - " + owe + " | |");
         }
