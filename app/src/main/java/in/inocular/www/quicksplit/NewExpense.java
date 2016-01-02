@@ -66,12 +66,14 @@ public class NewExpense extends Activity implements View.OnClickListener {
         uid = prefs.getString("members_id", "");
         int user = prefs.getInt("user_id",0);
         String arr[] = uid.split(" ");
-        Log.d("aaaaaaaaaaaaaaaaaaaaaaaaaa"+uid+uid.length(),"");
-        for (int i=0;i<arr.length;i++){
-            Log.d("\n------------,,,,,,,,"+arr[i],"");
-            if(user==Integer.parseInt(arr[i])){
-                loc = i;
-                break;
+        if(uid.compareTo("")!=0) {
+            Log.d("aaaaaaaaaaaaaa" + uid + uid.length(), "");
+            for (int i = 0; i < arr.length; i++) {
+                Log.d("\n------------,,,,,,,," + arr[i], "");
+                if (user == Integer.parseInt(arr[i])) {
+                    loc = i;
+                    break;
+                }
             }
         }
         spinner = (Spinner) findViewById(R.id.spinner);
