@@ -106,7 +106,8 @@ public class FetchAllOwings  extends AsyncTask<String,Void,String> {
             prefs = context.getSharedPreferences("file",0);
             SharedPreferences.Editor editor = prefs.edit();
             for(int j=0,k=0;j<l;j+=2){
-                editor.putString("member"+(k++),s[j]);
+                String arr[] = s[j].split(" ");
+                editor.putString("member"+(k++),arr[0]);
             }
             for(int j=1,k=0;j<l;j+=2){
                 editor.putInt("owe"+(k++), Integer.parseInt(s[j]));
