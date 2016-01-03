@@ -37,7 +37,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
     int l,temp[];
 
     Bundle extras;
-    int grpId,loc = 0,userowe;
+    int grpId,loc = 0,userowe=0;
     Spinner spinner;
     String grpName;
     String[] k;
@@ -66,8 +66,9 @@ public class NewExpense extends Activity implements View.OnClickListener {
         uid = prefs.getString("members_id", "");
         int user = prefs.getInt("user_id",0);
         String arr[] = uid.split(" ");
+        Log.d("aabbb" + userowe +"  "+ loc, "");
         if(uid.compareTo("")!=0) {
-            Log.d("aaaaaaaaaaaaaa" + uid + uid.length(), "");
+            Log.d("aaaa" + uid + uid.length(), "");
             for (int i = 0; i < arr.length; i++) {
                 Log.d("\n------------,,,,,,,," + arr[i], "");
                 if (user == Integer.parseInt(arr[i])) {
@@ -92,6 +93,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
             expense[1][i] = 0;
         }
         userowe = expense[0][loc]-expense[1][loc];
+        Log.d("aaaaa" + userowe +"  "+ loc, "");
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -215,6 +217,22 @@ public class NewExpense extends Activity implements View.OnClickListener {
         String totalexpense = total.getText().toString();
         String expensetitle = title.getText().toString();
 
+        prefs = getSharedPreferences("file", 0);
+        members = prefs.getString("group_members", "");
+        uid = prefs.getString("members_id", "");
+        int user = prefs.getInt("user_id",0);
+        String arr[] = uid.split(" ");
+        Log.d("aabbb" + userowe +"  "+ loc, "");
+        if(uid.compareTo("")!=0) {
+            Log.d("aaaa" + uid + uid.length(), "");
+            for (int i = 0; i < arr.length; i++) {
+                Log.d("\n------------,,,,,,,," + arr[i], "");
+                if (user == Integer.parseInt(arr[i])) {
+                    loc = i;
+                    break;
+                }
+            }
+        }
 
         if (pos != k.length - 1) {
             for (int i=0;i<k.length-1;i++) {
@@ -227,6 +245,10 @@ public class NewExpense extends Activity implements View.OnClickListener {
             paid_owe+=String.valueOf(expense[0][i])+" ";
             paid_owe+=String.valueOf(expense[1][i])+" ";
         }
+
+        userowe = expense[0][loc]-expense[1][loc];
+        Log.d("aaaaa" + userowe +"  "+ loc, "");
+
         Log.d("paid-owe",paid_owe);
         new AddExpense(NewExpense.this,grpName,userowe).execute(gid,expensetitle,totalexpense,grpName,uid,paid_owe);
 
