@@ -168,7 +168,9 @@ public class GroupActivity extends AppCompatActivity {
 
         //Toast.makeText(getApplicationContext(), itemId + "", Toast.LENGTH_SHORT).show();
         intent.putExtra("Group_Id",itemId);
+        intent.putExtra("Group_Name",grpName);
         startActivity(intent);
+        finish();
     }
 
     public void launchHomeActivity() {

@@ -1,5 +1,6 @@
 package in.inocular.www.quicksplit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 
 public class NewFriend extends ActionBarActivity {
 
+    int itemId;
+    String grpName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +21,8 @@ public class NewFriend extends ActionBarActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        final int itemId = extras.getInt("Group_Id");
+        itemId = extras.getInt("Group_Id");
+        grpName = extras.getString("Group_Name");
         //Toast.makeText(getApplicationContext(),itemId + "",Toast.LENGTH_SHORT).show();
         Button add;
         final EditText userid;
@@ -32,6 +36,15 @@ public class NewFriend extends ActionBarActivity {
                 new CreateFriend(NewFriend.this).execute(email,userid);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(this,GroupActivity.class);
+        intent.putExtra("Group_Id",itemId);
+        intent.putExtra("Group_Name",grpName);
+        startActivity(intent);
     }
 
     @Override
