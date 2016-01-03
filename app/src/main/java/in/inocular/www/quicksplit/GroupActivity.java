@@ -140,6 +140,9 @@ public class GroupActivity extends AppCompatActivity {
 
         mDrawerToggle.syncState();
 
+        String gid = String.valueOf(itemId);
+        new FetchFriends(GroupActivity.this).execute(gid);
+
     }
 
 
