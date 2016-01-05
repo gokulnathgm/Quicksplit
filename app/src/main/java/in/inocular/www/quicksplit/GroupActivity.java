@@ -20,6 +20,9 @@ import android.widget.BaseAdapter;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+
 
 public class GroupActivity extends AppCompatActivity {
 
@@ -32,6 +35,9 @@ public class GroupActivity extends AppCompatActivity {
     Bundle extras;
     int itemId;
     String grpName;
+
+    View action_newExpense;
+    View action_newPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,15 +149,71 @@ public class GroupActivity extends AppCompatActivity {
         String gid = String.valueOf(itemId);
         new FetchFriends(GroupActivity.this).execute(gid);
 
+
+
+
+
+
     }
 
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_group, menu);
-        return super.onCreateOptionsMenu(menu);
+        super.onCreateOptionsMenu(menu);
+
+        action_newExpense = (View) menu.getItem(1).getActionView();
+        action_newPerson = (View) menu.getItem(0).getActionView();
+
+
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this,"20");
+
+        sequence.setConfig(config);
+
+//        sequence.addSequenceItem(action_newPerson,
+        //              "Tap here to add new friends to the group", "GOT IT");
+
+        sequence.addSequenceItem(action_newExpense,
+                "Tap here to add new bills", "GOT IT");
+
+        sequence.start();
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+/*
+        action_newExpense = (View) menu.getItem(1).getActionView();
+        action_newPerson = (View) menu.getItem(0).getActionView();
+
+
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this,"20");
+
+        sequence.setConfig(config);
+
+//        sequence.addSequenceItem(action_newPerson,
+  //              "Tap here to add new friends to the group", "GOT IT");
+
+        sequence.addSequenceItem(action_newExpense,
+                "Tap here to add new bills", "GOT IT");
+
+        sequence.start();
+*/
+
+        return  true;
     }
 
     public void launchAddExpenseActivity(MenuItem item) {

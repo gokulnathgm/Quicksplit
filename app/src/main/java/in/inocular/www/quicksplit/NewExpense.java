@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -184,8 +183,8 @@ public class NewExpense extends Activity implements View.OnClickListener {
         grpId = extras.getInt("Group_Id");
         grpName = extras.getString("Group_Name");
 
-        gid = String.valueOf(grpId);
-        new FetchFriends(NewExpense.this).execute(gid);
+//        gid = String.valueOf(grpId);
+//        new FetchFriends(NewExpense.this).execute(gid);
 
 
 

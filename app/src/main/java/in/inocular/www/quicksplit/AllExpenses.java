@@ -73,9 +73,9 @@ public class AllExpenses extends Fragment {
             int t = Math.abs(owe[i]);
             String grp;
                 if (owe[i]<0) {
-                    grp = "in group 1 " + "( you owe )";
+                    grp = "You owes";
                 } else {
-                    grp = "in group 1 " + "( you gets back )";
+                    grp = "You gets back";
                 }
                     DataObject obj = new DataObject(names[i], grp ,t);
                     results.add(i, obj);
