@@ -20,9 +20,6 @@ import android.widget.BaseAdapter;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
-
 
 public class GroupActivity extends AppCompatActivity {
 
@@ -168,21 +165,23 @@ public class GroupActivity extends AppCompatActivity {
         action_newExpense = (View) menu.getItem(1).getActionView();
         action_newPerson = (View) menu.getItem(0).getActionView();
 
+/*
 
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(500); // half second between each showcase view
+*/
 
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this,"20");
+        //MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this,"20");
 
-        sequence.setConfig(config);
+      //  sequence.setConfig(config);
 
 //        sequence.addSequenceItem(action_newPerson,
         //              "Tap here to add new friends to the group", "GOT IT");
 
-        sequence.addSequenceItem(action_newExpense,
-                "Tap here to add new bills", "GOT IT");
+//        sequence.addSequenceItem(action_newExpense,
+  //              "Tap here to add new bills", "GOT IT");
 
-        sequence.start();
+    //    sequence.start();
 
 
         return true;
