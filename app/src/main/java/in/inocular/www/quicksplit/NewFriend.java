@@ -9,12 +9,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -35,6 +40,7 @@ public class NewFriend extends ActionBarActivity {
     ArrayList phno1 = new ArrayList();
 
     private Button add;
+    private EditText search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class NewFriend extends ActionBarActivity {
         grpName = extras.getString("Group_Name");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        search = (EditText) findViewById(R.id.search);
 
         studentList = new ArrayList<ContactDetails>();
         //Toast.makeText(getApplicationContext(),itemId + "",Toast.LENGTH_SHORT).show();
@@ -63,6 +70,13 @@ public class NewFriend extends ActionBarActivity {
             ContactDetails st = new ContactDetails(name1.get(i).toString(), phno1.get(i).toString(), false);
             studentList.add(st);
         }
+
+        Collections.sort(studentList, new Comparator<ContactDetails>() {
+            @Override
+            public int compare(ContactDetails lhs, ContactDetails rhs) {
+                return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
+            }
+        });
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -116,6 +130,39 @@ public class NewFriend extends ActionBarActivity {
             }
         });
 
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                List<ContactDetails> filteredList = new ArrayList<ContactDetails>(studentList);
+                filteredList.clear();
+                if (s.length()==0) {
+                    filteredList.addAll(studentList);
+                } else {
+                    final String filterPattern = s.toString().toLowerCase().trim();
+                    for (ContactDetails student:studentList) {
+                        if(student.getName().toLowerCase().contains(filterPattern)) {
+                            filteredList.add(student);
+                        }
+                    }
+                }
+
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(NewFriend.this));
+                mAdapter = new CardViewDataAdapter(filteredList);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     public void getAllContacts(ContentResolver cr) {
@@ -123,11 +170,14 @@ public class NewFriend extends ActionBarActivity {
         Cursor phones = cr.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
         while (phones.moveToNext()) {
-            String name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            int phoneType = phones.getInt(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+            if (phoneType == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
+                String name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-            name1.add(name);
-            phno1.add(phoneNumber);
+                name1.add(name);
+                phno1.add(phoneNumber);
+            }
         }
 
         phones.close();

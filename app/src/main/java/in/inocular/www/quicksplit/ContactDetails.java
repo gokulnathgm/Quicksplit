@@ -22,13 +22,6 @@ public class ContactDetails implements Serializable {
 
     }
 
-    public ContactDetails(String name, String emailId) {
-
-        this.name = name;
-        this.emailId = emailId;
-
-    }
-
     public ContactDetails(String name, String emailId, boolean isSelected) {
 
         this.name = name;
