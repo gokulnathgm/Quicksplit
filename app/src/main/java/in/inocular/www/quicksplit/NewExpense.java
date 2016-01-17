@@ -11,7 +11,9 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class NewExpense extends Activity implements View.OnClickListener {
@@ -41,6 +44,10 @@ public class NewExpense extends Activity implements View.OnClickListener {
     Spinner spinner;
     String grpName;
     String[] k;
+    int totalPayment;
+
+    TextView totalTextView;
+    TextView remainingTextView;
 
 
     @Override
@@ -96,79 +103,111 @@ public class NewExpense extends Activity implements View.OnClickListener {
         Log.d("aaaaa" + userowe +"  "+ loc, "");
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == k.length-1) {
-                    android.support.v7.app.AlertDialog.Builder builder =
-                            new android.support.v7.app.AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle);
+                    String totalText = total.getText().toString();
+                    if (!totalText.equals("")) {
+                        totalPayment = Integer.parseInt(totalText);
 
-                    Context context = getApplicationContext();
-                    LinearLayout layout = new LinearLayout(context);
-                    layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    layout.setOrientation(LinearLayout.VERTICAL);
-                    layout.setPadding(20, 5, 20, 5);
+                        android.support.v7.app.AlertDialog.Builder builder =
+                                new android.support.v7.app.AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle);
 
-                    for (int i = 0; i < k.length - 1; i++) {
-                        LinearLayout subLayout1 = new LinearLayout(context);
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        layoutParams.weight = 1;
-                        subLayout1.setLayoutParams(layoutParams);
-                        subLayout1.setGravity(Gravity.CENTER_VERTICAL);
+                        Context context = getApplicationContext();
+                        LinearLayout layout = new LinearLayout(context);
+                        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        layout.setOrientation(LinearLayout.VERTICAL);
+                        layout.setPadding(20, 5, 20, 5);
 
-
-                        final TextView t1 = new TextView(context);
-                        t1.setText(k[i]);
-                        t1.setTextColor(Color.parseColor("#C5070607"));
-                        t1.setLayoutParams(new LinearLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.30f)));
-                        t1.setTextSize(20);
-
-                        //t1.setGravity(Gravity.BOTTOM);
-                        subLayout1.addView(t1);
+                        for (int i = 0; i < k.length - 1; i++) {
+                            LinearLayout subLayout1 = new LinearLayout(context);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            layoutParams.weight = 1;
+                            subLayout1.setLayoutParams(layoutParams);
+                            subLayout1.setGravity(Gravity.CENTER_VERTICAL);
 
 
-                        final EditText text1 = new EditText(context);
-                        text1.setGravity(Gravity.TOP);
-                        text1.setId(i);
-                        text1.getBackground().setColorFilter(Color.parseColor("#449094"), PorterDuff.Mode.SRC_ATOP);
-                        text1.setTextColor(Color.parseColor("#C5070607"));
-                        text1.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        text1.setText(expense[0][i]+"");
-                        text1.setLayoutParams(new LinearLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.70f)));
+                            final TextView t1 = new TextView(context);
+                            t1.setText(k[i]);
+                            t1.setTextColor(Color.parseColor("#C5070607"));
+                            t1.setLayoutParams(new LinearLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.30f)));
+                            t1.setTextSize(20);
 
-                        subLayout1.addView(text1);
-                        layout.addView(subLayout1);
-                    }
-                    builder.setView(layout);
+                            //t1.setGravity(Gravity.BOTTOM);
+                            subLayout1.addView(t1);
 
-                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                            final EditText text1 = new EditText(context);
+                            text1.setGravity(Gravity.TOP);
+                            text1.setId(i);
+                            text1.getBackground().setColorFilter(Color.parseColor("#449094"), PorterDuff.Mode.SRC_ATOP);
+                            text1.setTextColor(Color.parseColor("#C5070607"));
+                            text1.setInputType(InputType.TYPE_CLASS_NUMBER);
+                            text1.setText(expense[0][i] + "");
+                            text1.setLayoutParams(new LinearLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.70f)));
 
-                            Dialog f = (Dialog) dialog;
-                            for (int m = 0; m < k.length - 1; m++) {
+                            text1.addTextChangedListener(new GenericTextWatcher(text1));
 
-                                EditText text = (EditText) f.findViewById(m);
-                                expense[0][m] = Integer.parseInt(text.getText().toString());
+                            subLayout1.addView(text1);
+                            layout.addView(subLayout1);
+                        }
+                        LinearLayout sublayout2 = new LinearLayout(context);
+                        sublayout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        sublayout2.setGravity(Gravity.CENTER_HORIZONTAL);
+                        sublayout2.setOrientation(LinearLayout.VERTICAL);
+
+                        totalTextView = new TextView(context);
+                        totalTextView.setText("Total : 0/" + totalPayment);
+                        totalTextView.setTextColor(Color.parseColor("#C5070607"));
+                        totalTextView.setGravity(Gravity.CENTER);
+
+                        remainingTextView = new TextView(context);
+                        remainingTextView.setTextColor(Color.parseColor("#C5070607"));
+                        remainingTextView.setText("Left : "+totalPayment);
+                        remainingTextView.setGravity(Gravity.CENTER);
+                        sublayout2.addView(totalTextView);
+                        sublayout2.addView(remainingTextView);
+                        layout.addView(sublayout2);
+
+                        builder.setView(layout);
+
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Dialog f = (Dialog) dialog;
+                                for (int m = 0; m < k.length - 1; m++) {
+
+                                    EditText text = (EditText) f.findViewById(m);
+                                    expense[0][m] = Integer.parseInt(text.getText().toString());
+                                }
                             }
-                        }
-                    });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
-                    builder.setTitle("Multiple people paid");
+                            }
+                        });
+                        builder.setTitle("Multiple people paid");
 
-                    android.support.v7.app.AlertDialog dialog = builder.create();
-                    dialog.show();
-                    Window window = dialog.getWindow();
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-                    int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
-                    window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        android.support.v7.app.AlertDialog dialog = builder.create();
+                        dialog.show();
+                        Window window = dialog.getWindow();
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                        int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
+                        window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    } else {
+                        Toast toast = Toast.makeText(getApplication(), "Enter total amount paid", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
+                        spinner.setSelection(0);
+                        total.requestFocus();
+                    }
                 }
             }
 
@@ -264,6 +303,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         //new AddExpense(NewExpense.this).execute(gid,expensetitle,totalexpense,grpName);
     }
 
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void displayOwingsPopup() {
 
@@ -343,5 +383,39 @@ public class NewExpense extends Activity implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
         finish();
+    }
+
+    private class GenericTextWatcher implements TextWatcher {
+
+        private View view;
+        private int[] payments;
+        public GenericTextWatcher(View text1) {
+            view = text1;
+            payments = expense[0];
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int id = view.getId();
+            payments[id] = Integer.parseInt(String.valueOf(s));
+            int sum=0;
+            for (int i:payments) {
+                sum += i;
+            }
+
+            totalTextView.setText("Total : "+sum+"/"+totalPayment);
+            remainingTextView.setText("Left : "+(totalPayment-sum));
+            //Toast.makeText(getApplicationContext(),sum+"",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
     }
 }
