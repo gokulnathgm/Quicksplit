@@ -41,6 +41,8 @@ public class NewFriend extends ActionBarActivity {
 
     private Button add;
     private EditText search;
+    private String[] name;
+    private String[] phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,14 +107,19 @@ public class NewFriend extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 String data = "";
+
                 List<ContactDetails> stList = ((CardViewDataAdapter) mAdapter)
                         .getStudentist();
+                name = new String[stList.size()];
+                phoneNumber = new String[stList.size()];
 
                 for (int i = 0; i < stList.size(); i++) {
                     ContactDetails singleStudent = stList.get(i);
                     if (singleStudent.isSelected() == true) {
-
+                        name[i] = singleStudent.getName().toString();
+                        phoneNumber[i] = singleStudent.getEmailId().toString();
                         data = data + "\n" + singleStudent.getName().toString();
+
       /*
        * Toast.makeText( CardViewActivity.this, " " +
        * singleStudent.getName() + " " +

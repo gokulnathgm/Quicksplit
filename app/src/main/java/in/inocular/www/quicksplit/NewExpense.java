@@ -44,7 +44,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
     Spinner spinner;
     String grpName;
     String[] k;
-    int totalPayment;
+    int totalPayment,sumOfIndividualPayments=0,sumOfIndividualShares=0;
 
     TextView totalTextView;
     TextView remainingTextView;
@@ -107,8 +107,9 @@ public class NewExpense extends Activity implements View.OnClickListener {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == k.length-1) {
-                    String totalText = total.getText().toString();
+                String totalText = total.getText().toString();
+                if (position == k.length - 1) {
+
                     if (!totalText.equals("")) {
                         totalPayment = Integer.parseInt(totalText);
 
@@ -148,7 +149,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
                             text1.setText(expense[0][i] + "");
                             text1.setLayoutParams(new LinearLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.70f)));
 
-                            text1.addTextChangedListener(new GenericTextWatcher(text1));
+                            text1.addTextChangedListener(new PaymentsTextWatcher(text1));
 
                             subLayout1.addView(text1);
                             layout.addView(subLayout1);
@@ -165,18 +166,20 @@ public class NewExpense extends Activity implements View.OnClickListener {
 
                         remainingTextView = new TextView(context);
                         remainingTextView.setTextColor(Color.parseColor("#C5070607"));
-                        remainingTextView.setText("Left : "+totalPayment);
+                        remainingTextView.setText("Left : " + totalPayment);
                         remainingTextView.setGravity(Gravity.CENTER);
                         sublayout2.addView(totalTextView);
                         sublayout2.addView(remainingTextView);
                         layout.addView(sublayout2);
 
                         builder.setView(layout);
+                        android.support.v7.app.AlertDialog dialog;
 
                         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
 
                                 Dialog f = (Dialog) dialog;
                                 for (int m = 0; m < k.length - 1; m++) {
@@ -184,7 +187,9 @@ public class NewExpense extends Activity implements View.OnClickListener {
                                     EditText text = (EditText) f.findViewById(m);
                                     expense[0][m] = Integer.parseInt(text.getText().toString());
                                 }
+
                             }
+
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
@@ -195,7 +200,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
                         });
                         builder.setTitle("Multiple people paid");
 
-                        android.support.v7.app.AlertDialog dialog = builder.create();
+                        dialog = builder.create();
                         dialog.show();
                         Window window = dialog.getWindow();
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -203,10 +208,15 @@ public class NewExpense extends Activity implements View.OnClickListener {
                         window.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
                     } else {
                         Toast toast = Toast.makeText(getApplication(), "Enter total amount paid", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         spinner.setSelection(0);
                         total.requestFocus();
+                    }
+                } else {
+                    if (!totalText.equals("")) {
+                        totalPayment = Integer.parseInt(totalText);
+                        sumOfIndividualShares = totalPayment;
                     }
                 }
             }
@@ -222,13 +232,7 @@ public class NewExpense extends Activity implements View.OnClickListener {
         grpId = extras.getInt("Group_Id");
         grpName = extras.getString("Group_Name");
 
-//        gid = String.valueOf(grpId);
-//        new FetchFriends(NewExpense.this).execute(gid);
-
-
-
-     //   Log.d("members",members);
-     //   Log.d("members id",uid);
+        gid = String.valueOf(grpId);
 
         addExpense.setOnClickListener(this);
 //        paidBy.setOnClickListener(this);
@@ -246,7 +250,21 @@ public class NewExpense extends Activity implements View.OnClickListener {
                 displayOwingsPopup();
                 break;
             case R.id.addExpenseButton:
-                add_expense();
+                String totalText = total.getText().toString();
+                if (totalText.equals("")) {
+                    total.setError("Enter total amount");
+                } else {
+                    totalPayment = Integer.parseInt(totalText);
+                    if (spinner.getSelectedItemPosition() != k.length -1) {
+                        sumOfIndividualPayments = totalPayment;
+                    }
+                    if (sumOfIndividualPayments == totalPayment && totalPayment == sumOfIndividualShares) {
+                        add_expense();
+//                        Toast.makeText(getApplication(), "Shares : " + sumOfIndividualShares + " tot : " + totalPayment, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplication(), "Invalid Expense... Payments doesnt tally", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
         }
     }
@@ -342,9 +360,30 @@ public class NewExpense extends Activity implements View.OnClickListener {
             text1.setText(expense[1][i]+"");
             text1.setLayoutParams(new LinearLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.70f)));
 
+            text1.addTextChangedListener(new OwingsTextWatcher(text1));
             subLayout1.addView(text1);
             layout.addView(subLayout1);
         }
+
+        LinearLayout sublayout2 = new LinearLayout(context);
+        sublayout2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        sublayout2.setGravity(Gravity.CENTER_HORIZONTAL);
+        sublayout2.setOrientation(LinearLayout.VERTICAL);
+
+        totalTextView = new TextView(context);
+        totalTextView.setText("Total : 0/" + totalPayment);
+        totalTextView.setTextColor(Color.parseColor("#C5070607"));
+        totalTextView.setGravity(Gravity.CENTER);
+
+        remainingTextView = new TextView(context);
+        remainingTextView.setTextColor(Color.parseColor("#C5070607"));
+        remainingTextView.setText("Left : " + totalPayment);
+        remainingTextView.setGravity(Gravity.CENTER);
+        sublayout2.addView(totalTextView);
+        sublayout2.addView(remainingTextView);
+        layout.addView(sublayout2);
+
+
         builder.setView(layout);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -385,11 +424,11 @@ public class NewExpense extends Activity implements View.OnClickListener {
         finish();
     }
 
-    private class GenericTextWatcher implements TextWatcher {
+    private class PaymentsTextWatcher implements TextWatcher {
 
         private View view;
         private int[] payments;
-        public GenericTextWatcher(View text1) {
+        public PaymentsTextWatcher(View text1) {
             view = text1;
             payments = expense[0];
         }
@@ -403,13 +442,47 @@ public class NewExpense extends Activity implements View.OnClickListener {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             int id = view.getId();
             payments[id] = Integer.parseInt(String.valueOf(s));
-            int sum=0;
+            sumOfIndividualPayments=0;
             for (int i:payments) {
-                sum += i;
+                sumOfIndividualPayments += i;
             }
 
-            totalTextView.setText("Total : "+sum+"/"+totalPayment);
-            remainingTextView.setText("Left : "+(totalPayment-sum));
+            totalTextView.setText("Total : "+sumOfIndividualPayments+"/"+totalPayment);
+            remainingTextView.setText("Left : "+(totalPayment-sumOfIndividualPayments));
+            //Toast.makeText(getApplicationContext(),sum+"",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    }
+
+    private class OwingsTextWatcher implements TextWatcher {
+
+        private View view;
+        private int[] shares;
+        public OwingsTextWatcher(View text1) {
+            view = text1;
+            shares = expense[1];
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int id = view.getId();
+            shares[id] = Integer.parseInt(String.valueOf(s));
+            sumOfIndividualShares=0;
+            for (int i:shares) {
+                sumOfIndividualShares += i;
+            }
+
+            totalTextView.setText("Total : "+sumOfIndividualShares+"/"+totalPayment);
+            remainingTextView.setText("Left : "+(totalPayment-sumOfIndividualShares));
             //Toast.makeText(getApplicationContext(),sum+"",Toast.LENGTH_SHORT).show();
         }
 
