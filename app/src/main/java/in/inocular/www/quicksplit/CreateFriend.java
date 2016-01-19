@@ -42,14 +42,18 @@ public class CreateFriend  extends AsyncTask<String,Void,String> {
     protected String doInBackground(String... arg0) {
 
         try{
-            String email = (String)arg0[0];
-            String group_id = (String)arg0[1];
+            String gid = (String)arg0[0];
+            String users = (String)arg0[1];
+            String phone = (String)arg0[2];
 
             String link="http://inocular.in/php/addfriend.php";
-            String data  = URLEncoder.encode("email", "UTF-8")
-                    + "=" + URLEncoder.encode(email, "UTF-8");
-            data += "&" + URLEncoder.encode("group_id", "UTF-8")
-                    + "=" + URLEncoder.encode(group_id, "UTF-8");
+            String data  = URLEncoder.encode("gid", "UTF-8")
+                    + "=" + URLEncoder.encode(gid, "UTF-8");
+            data += "&" + URLEncoder.encode("users", "UTF-8")
+                    + "=" + URLEncoder.encode(users, "UTF-8");
+            data += "&" + URLEncoder.encode("phone", "UTF-8")
+                    + "=" + URLEncoder.encode(phone, "UTF-8");
+
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
@@ -80,21 +84,16 @@ public class CreateFriend  extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result){
 
         Log.d("RESULT", result);
-        if(result.equals("success")) {
-            Toast.makeText(context, "Successfully added friend!", Toast.LENGTH_SHORT).show();
-            progress.dismiss();
-        }
 
-        else if(result.equals("failure")) {
+        if(result.equals("failure")) {
             Toast.makeText(context, "Unable to connect!", Toast.LENGTH_SHORT).show();
             progress.dismiss();
         }
 
-        else
-        {
-            Toast.makeText(context,"Invalid user!",Toast.LENGTH_SHORT).show();
-            //this.statuss.setText("Invalid Credentials!!!");
+        else {
+            Toast.makeText(context, "Successfully added friend!", Toast.LENGTH_SHORT).show();
             progress.dismiss();
         }
+
     }
 }

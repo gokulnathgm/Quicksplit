@@ -106,7 +106,7 @@ public class NewFriend extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                String data = "";
+                String users = "", phone = "", gid = String.valueOf(itemId);
 
                 List<ContactDetails> stList = ((CardViewDataAdapter) mAdapter)
                         .getStudentist();
@@ -117,8 +117,9 @@ public class NewFriend extends ActionBarActivity {
                     ContactDetails singleStudent = stList.get(i);
                     if (singleStudent.isSelected() == true) {
                         name[i] = singleStudent.getName().toString();
+                        phone = phone + "%" + singleStudent.getName().toString();
                         phoneNumber[i] = singleStudent.getEmailId().toString();
-                        data = data + "\n" + singleStudent.getName().toString();
+                        users = users + "%" + singleStudent.getName().toString();
 
       /*
        * Toast.makeText( CardViewActivity.this, " " +
@@ -132,8 +133,10 @@ public class NewFriend extends ActionBarActivity {
                 }
 
                 Toast.makeText(NewFriend.this,
-                        "Selected Students: \n" + data, Toast.LENGTH_LONG)
+                        "Selected Students: \n" + users, Toast.LENGTH_LONG)
                         .show();
+
+                new CreateFriend(NewFriend.this).execute(gid, users, phone);
             }
         });
 
