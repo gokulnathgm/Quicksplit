@@ -96,7 +96,7 @@ public class SigninActivity  extends AsyncTask<String,Void,String> {
             editor.putBoolean("logged_in",true);
             editor.commit();
 
-            Intent i = new Intent(context, Home.class);
+            Intent i = new Intent(context, intro.class);
             context.startActivity(i);
             ;
             Toast.makeText(context, "Successfuly Logged in !", Toast.LENGTH_SHORT).show();

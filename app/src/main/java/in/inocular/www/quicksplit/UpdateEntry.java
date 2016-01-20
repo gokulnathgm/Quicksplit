@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -105,7 +103,7 @@ public class UpdateEntry extends AsyncTask<String,Void,String>  {
             editor.putBoolean("logged_in",true);
             editor.commit();
 
-            Intent i = new Intent(context, Home.class);
+            Intent i = new Intent(context, intro.class);
             context.startActivity(i);
 
             Toast.makeText(context,"Successfuly Registered",Toast.LENGTH_SHORT).show();
